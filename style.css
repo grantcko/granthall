@@ -1,9 +1,11 @@
 body {
-  background-color: #eee0d8;
+  background-color: #ff81ba;
   color: #F7F7F6;
   font-family: 'Courier New', Courier, monospace;
   font-size: 15;
   text-align: center;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, #eaefb5 0%, #eaa7a1 100%);
 }
 
 h1 {
