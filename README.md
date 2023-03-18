@@ -1,2 +1,2 @@
 # personal-profile
-(This)[https://granthall.me/] is my personal profile/porfolio website. 
+[THIS](https://granthall.me/) is my personal profile/porfolio website. 
