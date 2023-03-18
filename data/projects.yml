@@ -1,19 +1,19 @@
+- name: Shift Better
+  description: Automatic shift scheduler for hotel managers.
+  image: projects/placeholder.png
+  url: https://www.shiftbetter.tech
+
+- name: ICEY
+  description: Marketplace for renting nice jewelry.
+  image: projects/placeholder.png
+  url: https://icey-marketplace.herokuapp.com/
+
 - name: Longest Word Game
-  description: Decent description of the app
+  description: A simple game that gives you 10 letters. You guess words.
   image: projects/placeholder.png
   url: https://www.google.com
 
 - name: Movie Watchlist
-  description: Decent description of the app
-  image: projects/placeholder.png
-  url: https://www.google.com
-
-- name: Airbnb
-  description: Decent description of the app
-  image: projects/placeholder.png
-  url: https://www.google.com
-
-- name: Final project
   description: Decent description of the app
   image: projects/placeholder.png
   url: https://www.google.com
