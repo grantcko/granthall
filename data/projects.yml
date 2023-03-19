@@ -1,11 +1,11 @@
 - name: Shift Better
   description: Automatic shift scheduler for hotel managers.
-  image: projects/placeholder.png
+  image: projects/shift-better.png
   url: https://www.shiftbetter.tech
 
 - name: ICEY
   description: Marketplace for renting nice jewelry.
-  image: projects/placeholder.png
+  image: projects/icey.png
   url: https://icey-marketplace.herokuapp.com/
 
 - name: Longest Word Game
