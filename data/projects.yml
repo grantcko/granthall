@@ -10,10 +10,10 @@
 
 - name: Longest Word Game
   description: A simple game that gives you 10 letters. You guess words.
-  image: projects/placeholder.png
+  image: projects/longest-word.png
   url: https://www.google.com
 
-- name: Movie Watchlist
-  description: Decent description of the app
-  image: projects/placeholder.png
-  url: https://www.google.com
+# - name: Movie Watchlist
+#   description: A place to track the the movies you and your friends have watched.
+#   image: projects/placeholder.png
+#   url: https://www.google.com
