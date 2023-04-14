@@ -13,7 +13,12 @@
   image: projects/longest-word.png
   url: https://longest-word.herokuapp.com/
 
-# - name: Movie Watchlist
-#   description: A place to track the the movies you and your friends have watched.
-#   image: projects/placeholder.png
-#   url: https://www.google.com
+- name: Enquair
+  description: This is a polling application collecting votes on what people think Grant Hall likes.
+  image: projects/enquair.png
+  url: https://enquair.herokuapp.com/
+
+- name: Reactic-Tac-Toe
+  description: A simple game of Tic-Tac-Toe made using the React framework.
+  image: projects/reactic.png
+  url: https://reactic-tac-toe.netlify.app/
