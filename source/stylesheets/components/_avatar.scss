@@ -31,13 +31,27 @@
   margin-right: 20px;
 }
 
+/* Default style for all screen sizes */
+.text-small {
+  display: none;
+}
+
+.text-large {
+  display: block;
+}
+
+
 @media (max-width: 800px) {
   .written-shaped {
     max-width: 90%;
   }
 
-  .container-small {
-    font-size: 8px;
+  .text-small {
+    display: block;
+  }
+
+  .text-large {
+    display: none;
   }
 }
 
@@ -47,6 +61,15 @@
   }
 
   .container-small {
-    font-size: 6px;
+    // font-size: 6px;
+    word-wrap: normal;
+  }
+
+  .text-small {
+    display: block;
+  }
+
+  .text-large {
+    display: none;
   }
 }

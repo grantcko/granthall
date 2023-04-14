@@ -10,6 +10,7 @@
 body {
   background-color: #000;
   font-family: monospace;
+  overflow-x: hidden;
 }
 
 p {
@@ -41,7 +42,7 @@ h3 {
   opacity: 1;
   -webkit-transition: all .5s ease-in 3s;
   transition: all .5s ease-in 3s;
-}
+  }
 
 .down-btn:hover {
   font-size: x-large;
