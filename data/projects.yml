@@ -1,4 +1,9 @@
-CoverArt- name: Shift Better
+- name: Digatools
+  description: A toolbox for digital artists. Color Picker, EQ, Story Prompt Generator, etc.
+  image: projects/digatools.png
+  url: https://github.com/grantcko/rails-digatools
+
+- name: Shift Better
   description: Automatic shift scheduler for hotel managers.
   image: projects/shift-better.png
   url: https://www.shiftbetter.tech
@@ -12,11 +17,6 @@ CoverArt- name: Shift Better
   description: A simple game that gives you 10 letters. You guess words.
   image: projects/longest-word.png
   url: https://longest-word.herokuapp.com/
-
-- name: Enquair
-  description: This is a polling application collecting votes on what people think Grant Hall likes.
-  image: projects/enquair.png
-  url: https://enquair.herokuapp.com/
 
 - name: Reactic-Tac-Toe
   description: A simple game of Tic-Tac-Toe made using the React framework.
