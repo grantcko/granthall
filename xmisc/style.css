@@ -20,6 +20,14 @@ h3 {
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+}
+
+.project-link {
+  text-decoration: none !important;
+}
+
 .header-style {
   color: #ff81ba;
   font-family: 'Arial', Helvetica, sans-serif;
