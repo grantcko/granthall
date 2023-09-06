@@ -81,6 +81,11 @@ h3 {
   transform: translateX(-50%);
 }
 
+li.nav-button-home {
+  font-size: 12px;
+  padding-top: 3px;
+}
+
 a {
   text-decoration: none;
   color: #a7b0be;
