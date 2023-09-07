@@ -109,6 +109,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  dotenv
   middleman (~> 4.2)
   middleman-autoprefixer (~> 3.0)
   tzinfo-data
