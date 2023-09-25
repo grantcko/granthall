@@ -1,7 +1,7 @@
 - name: Digatools
   description: A toolbox for digital artists. Color Picker, EQ, Story Prompt Generator, etc.
   image: projects/digatools.png
-  url: https://github.com/grantcko/rails-digatools
+  url: https://rails-digatools-00cc874ac5b6.herokuapp.com
 
 - name: Shift Better
   description: Automatic shift scheduler for hotel managers.
