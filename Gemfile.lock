@@ -160,11 +160,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-<<<<<<< HEAD
   dotenv
-=======
   google-api-client
->>>>>>> 61c3232d8cb57cfdd3f057c694a1a39d306819ef
   middleman (~> 4.2)
   middleman-autoprefixer (~> 3.0)
   tzinfo-data
