@@ -1,0 +1,14 @@
+- name: resolve-time
+  description: A command line tool for calculating time spent in resolve
+  image: greyshirt.jpg
+  url: https://github.com/grantcko/resolve-time
+
+- name: Digatools
+  description: A toolbox for digital artists. Color Picker, EQ, Story Prompt Generator, etc.
+  image: projects/digatools.png
+  url: https://rails-digatools-00cc874ac5b6.herokuapp.com
+
+- name: Reactic-Tac-Toe
+  description: A simple game of Tic-Tac-Toe made using the React framework.
+  image: projects/reactic.png
+  url: https://reactic-tac-toe.netlify.app/
