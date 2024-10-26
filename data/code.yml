@@ -1,6 +1,6 @@
 - name: resolve-time
   description: A command line tool for calculating time spent in resolve
-  image: greyshirt.jpg
+  image: code_placeholder.jpg
   url: https://github.com/grantcko/resolve-time
 
 - name: Digatools
