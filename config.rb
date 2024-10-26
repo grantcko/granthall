@@ -31,11 +31,18 @@ page '/*.txt', layout: false
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-# helpers do
-#   def some_helper
-#     'Helping'
-#   end
-# end
+require 'vimeo_api'
+require 'dotenv/load'
+
+helpers do
+  def fetch_vimeo_videos
+    client = VimeoApi::Client.new(access_token: ENV['VIMEO_ACCESS_TOKEN'])
+    client.user('/me').videos(per_page: 100)
+  rescue => e
+    puts "Error fetching videos: #{e.message}"
+    []
+  end
+end
 
 # Build-specific configuration
 # https://middlemanapp.com/advanced/configuration/#environment-specific-settings
