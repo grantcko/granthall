@@ -1,29 +1,54 @@
 <div class="container pt-5">
+  <div class="video-grid">
+    <% videos = fetch_vimeo_videos %>
+    <% videos['data'].each do |video| %>
+      <div class="video-card">
+        <div class="video-wrapper">
+          <a href="<%= video['link'] %>" target="_blank">
+            <img loading="lazy"
+                 class="card-img-top"
+                 src="<%= video['pictures']['sizes'].last['link'] %>"
+                 alt="<%= video['name'] %>">
+          </a>
+        </div>
+        <div class="content">
+          <h3><%= video['name'] %></h3>
+          <p><%= truncate_words(video['description']) %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="row pt-5">
     <div class="video-wrapper">
       <div style='padding:56.25% 0 0 0;position:relative;'>
-        <iframe src='https://vimeo.com/showcase/11427759/embed?autoplay=0&title=0&byline=0&portrait=0' allowfullscreen frameborder='0' style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
+        <iframe loading="lazy"
+          src='https://vimeo.com/showcase/11427774/embed'
+          allowfullscreen
+          frameborder='0'
+          style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
       </div>
     </div>
   </div>
   <div class="row pt-5">
     <div class="video-wrapper">
       <div style='padding:56.25% 0 0 0;position:relative;'>
-        <iframe src='https://vimeo.com/showcase/11427774/embed' allowfullscreen frameborder='0' style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
+        <iframe loading="lazy"
+          src='https://vimeo.com/showcase/11427782/embed'
+          allowfullscreen
+          frameborder='0'
+          style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
       </div>
     </div>
   </div>
   <div class="row pt-5">
     <div class="video-wrapper">
       <div style='padding:56.25% 0 0 0;position:relative;'>
-        <iframe src='https://vimeo.com/showcase/11427782/embed' allowfullscreen frameborder='0' style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
-      </div>
-    </div>
-  </div>
-  <div class="row pt-5">
-    <div class="video-wrapper">
-      <div style='padding:56.25% 0 0 0;position:relative;'>
-        <iframe src='https://vimeo.com/showcase/11428412/embed' allowfullscreen frameborder='0' style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
+        <iframe loading="lazy"
+          src='https://vimeo.com/showcase/11428412/embed'
+          allowfullscreen
+          frameborder='0'
+          style='position:absolute;top:0;left:0;width:100%;height:100%;'></iframe>
       </div>
     </div>
   </div>
