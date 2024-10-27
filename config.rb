@@ -54,6 +54,12 @@ helpers do
     end
   end
 
+  def truncate_words(text, word_count = 10)
+    return "" if text.nil?
+    words = text.split
+    words.length > word_count ? words.first(word_count).join(' ') + "..." : text
+  end
+
   def fetch_github_pinned_repos
     require 'httparty'
 
@@ -110,7 +116,15 @@ end
 # Build-specific configuration
 # https://middlemanapp.com/advanced/configuration/#environment-specific-settings
 
+# This configuration is for setting up an external pipeline with Webpack during the build process.
+# It activates the external pipeline, specifying the name as :webpack.
+# The command to run depends on whether it's a build or start process.
+# The source directory for the pipeline is '.tmp/dist' and the latency is set to 1.
+#
 # configure :build do
-#   activate :minify_css
-#   activate :minify_javascript
+#   activate :external_pipeline,
+#     name: :webpack,
+#     command: build? ? 'yarn run build' : 'yarn run start',
+#     source: '.tmp/dist',
+#     latency: 1
 # end
