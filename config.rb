@@ -31,16 +31,79 @@ page '/*.txt', layout: false
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-require 'vimeo_api'
-require 'dotenv/load'
-
 helpers do
   def fetch_vimeo_videos
-    client = VimeoApi::Client.new(access_token: ENV['VIMEO_ACCESS_TOKEN'])
-    client.user('/me').videos(per_page: 100)
-  rescue => e
-    puts "Error fetching videos: #{e.message}"
-    []
+    require 'httparty'
+
+    user_id = ENV['USER_ID']
+    album_id = ENV['ALBUM_ID']
+    access_token = ENV['VIMEO_ACCESS_TOKEN']
+
+    url = "https://api.vimeo.com/users/#{user_id}/albums/#{album_id}/videos"
+    headers = {
+      "Authorization" => "Bearer #{access_token}"
+    }
+
+    response = HTTParty.get(url, headers: headers)
+
+    if response.success?
+      JSON.parse(response.body)
+    else
+      puts "Error fetching videos: #{response.code} #{response.message}"
+      {}
+    end
+  end
+
+  def fetch_github_pinned_repos
+    require 'httparty'
+
+    access_token = ENV['GITHUB_ACCESS_TOKEN']
+    username = 'grantcko'
+
+    url = "https://api.github.com/graphql"
+    headers = {
+      "Authorization" => "Bearer #{access_token}",
+      "Content-Type" => "application/json"
+    }
+
+    query = <<~GQL
+      {
+        user(login: "#{username}") {
+          pinnedItems(first: 6, types: REPOSITORY) {
+            nodes {
+              ... on Repository {
+                name
+                description
+                url
+                primaryLanguage {
+                  name
+                }
+                stargazerCount
+              }
+            }
+          }
+        }
+      }
+    GQL
+
+    response = HTTParty.post(url, headers: headers, body: { query: query }.to_json)
+
+    if response.success?
+      data = JSON.parse(response.body)
+      pinned_repos = data['data']['user']['pinnedItems']['nodes']
+      pinned_repos.map do |repo|
+        {
+          name: repo['name'],
+          description: repo['description'],
+          url: repo['url'],
+          language: repo['primaryLanguage'] ? repo['primaryLanguage']['name'] : nil,
+          stars: repo['stargazerCount']
+        }
+      end
+    else
+      puts "Error fetching pinned repos: #{response.code} #{response.message}"
+      []
+    end
   end
 end
 
