@@ -40,8 +40,17 @@ helpers do
       album_id = ENV['ALBUM_ID']
       access_token = ENV['VIMEO_ACCESS_TOKEN']
 
-      # Early return with empty data if env vars are missing
-      return { 'data' => [] } if [user_id, album_id, access_token].any?(&:nil?)
+      # Debug output
+      puts "Environment variables:"
+      puts "USER_ID: #{user_id ? 'set' : 'not set'}"
+      puts "ALBUM_ID: #{album_id ? 'set' : 'not set'}"
+      puts "VIMEO_ACCESS_TOKEN: #{access_token ? 'set' : 'not set'}"
+
+      # Early return with empty data if env vars are missing or contain placeholder values
+      if [user_id, album_id, access_token].any? { |var| var.nil? || var.include?('your_') }
+        puts "Warning: Using placeholder environment variables"
+        return { 'data' => [] }
+      end
 
       url = "https://api.vimeo.com/users/#{user_id}/albums/#{album_id}/videos?sort=manual"
       headers = {
@@ -55,8 +64,8 @@ helpers do
         JSON.parse(response.body)
       else
         puts "Error fetching videos: #{response.code} #{response.message}"
-        puts "URL attempted: #{url}"  # Add this for debugging
-        { 'data' => [] }  # Return empty data instead of failing
+        puts "URL attempted: #{url.gsub(access_token, '[REDACTED]')}"  # Don't log the actual token
+        { 'data' => [] }
       end
     rescue => e
       puts "Error in fetch_vimeo_videos: #{e.message}"
@@ -118,6 +127,23 @@ helpers do
       end
     else
       puts "Error fetching pinned repos: #{response.code} #{response.message}"
+      []
+    end
+  end
+
+  def fetch_github_repos
+    begin
+      token = ENV['GITHUB_ACCESS_TOKEN']
+
+      # Early return if token is missing or contains placeholder
+      if token.nil? || token.include?('your_')
+        puts "Warning: GitHub token not properly configured"
+        return []
+      end
+
+      # Rest of your GitHub fetching code...
+    rescue => e
+      puts "Error fetching GitHub repos: #{e.message}"
       []
     end
   end
