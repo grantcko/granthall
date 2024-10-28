@@ -47,6 +47,12 @@ The site uses:
 - SCSS for styling
 - Bootstrap for layout
 - HTTParty for API requests
+- Justified Gallery (v3.8.1) for photo grid layout
+- PhotoSwipe (v5.3.8) for image lightbox
+- jQuery (v3.6.0) for Justified Gallery dependency
+- Cloudinary for image hosting and optimization
+  - Thumbnails: `w_800,q_auto,f_auto`
+  - Fullsize: `w_800,q_95,f_auto`
 
 ## Contributing
 1. Fork the repository
