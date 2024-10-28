@@ -12,3 +12,10 @@ Domain name service: [spaceship](https://spaceship.com)
 ☐ Add a contact form
 
 ☐ Upload videos to Vimeo
+
+## Environment variables
+
+To set up environment variables in Netlify:
+1. Go to Site settings > Build & deploy
+2. Click on "Environment variables"
+3. Add each variable listed above
