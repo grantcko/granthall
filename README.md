@@ -15,6 +15,9 @@ To set up environment variables in Netlify:
    - `ALBUM_ID`: Your Vimeo album ID
    - `VIMEO_ACCESS_TOKEN`: Your Vimeo API access token
    - `GITHUB_ACCESS_TOKEN`: Your GitHub personal access token
+   - `CLOUDINARY_CLOUD_NAME`: Your Cloudinary cloud name
+   - `CLOUDINARY_API_KEY`: Your Cloudinary API key
+   - `CLOUDINARY_API_SECRET`: Your Cloudinary API secret
 
 ## Features
 - Dynamic video loading from Vimeo API
@@ -34,7 +37,8 @@ To set up environment variables in Netlify:
 - ☐ Upload videos to Vimeo
 - ☐ Add video category tags
 - ☐ make thumbnails for top videos  on vimeo
-- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU)
+- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
+)
 
 ## Development
 
