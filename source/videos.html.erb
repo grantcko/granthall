@@ -3,18 +3,18 @@
     <% videos = fetch_vimeo_videos %>
     <% videos['data'].each do |video| %>
       <div class="video-card">
-        <div class="video-wrapper">
-          <a href="<%= video['link'] %>" target="_blank">
+        <a href="<%= video['link'] %>" target="_blank" class="d-block">
+          <div class="video-wrapper">
             <img loading="lazy"
                  class="card-img-top"
                  src="<%= video['pictures']['sizes'].last['link'] %>"
                  alt="<%= video['name'] %>">
-          </a>
-        </div>
-        <div class="content">
-          <h3><%= video['name'] %></h3>
-          <p><%= truncate_words(video['description']) %></p>
-        </div>
+          </div>
+          <div class="content">
+            <h3><%= video['name'] %></h3>
+            <p><%= truncate_words(video['description']) %></p>
+          </div>
+        </a>
       </div>
     <% end %>
   </div>
