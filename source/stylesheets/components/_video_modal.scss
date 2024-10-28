@@ -1,0 +1,103 @@
+// Video Modal Styles
+.video-card-button {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+
+  h3, h4, h5, h6 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.video-thumbnail {
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 1.75rem auto;
+}
+
+.video-container {
+  background: #000;
+  margin-bottom: 1rem;
+}
+
+.video-description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+// Make sure modal appears above other content
+.modal {
+  z-index: 9999 !important;
+}
+
+.modal-backdrop {
+  z-index: 9998 !important;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-out;
+  backdrop-filter: blur(0px);
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  backdrop-filter: blur(3px);
+}
+
+// Fade animation
+.modal.fade .modal-dialog {
+  transition: transform .3s ease-out;
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+// Modal styles
+.modal-content {
+  background-color: #000;
+  color: #fff;
+}
+
+.modal-header {
+  border-bottom: 1px solid #333;
+
+  .btn-close {
+    color: #fff;
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  z-index: 1; // Ensure videos stay clickable
+}
+
+iframe {
+  z-index: 1; // Ensure iframes stay clickable
+}
+
+// Make showcases clickable through modal backdrop
+.video-wrapper iframe {
+  position: relative;
+  z-index: 1051; // Higher than modal backdrop (1050)
+}
+
+.video-card-button {
+  position: relative;
+  z-index: 1;
+}

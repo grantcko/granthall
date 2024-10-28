@@ -24,3 +24,21 @@ function scrollTrigger(selector) {
 document.addEventListener('DOMContentLoaded', function() {
   scrollTrigger('.scroll-reveal');
 });
+
+// Video Modal Handler
+document.addEventListener('DOMContentLoaded', function() {
+  const videoModal = document.getElementById('videoModal');
+  if (videoModal) {
+    videoModal.addEventListener('show.bs.modal', event => {
+      const button = event.relatedTarget;
+      const videoId = button.dataset.videoId;
+      const videoTitle = button.dataset.videoTitle;
+      videoModal.querySelector('.modal-title').textContent = videoTitle;
+      videoModal.querySelector('iframe').src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=1&byline=0&portrait=0&controls=1&share=1&pip=0&speed=0&quality=0&collections=0&info=0`;
+    });
+
+    videoModal.addEventListener('hidden.bs.modal', () => {
+      videoModal.querySelector('iframe').src = '';
+    });
+  }
+});

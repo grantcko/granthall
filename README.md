@@ -24,9 +24,16 @@ To set up environment variables in Netlify:
 - Bootstrap integration
 
 ## TODO:
-- ☐ Redo the Videos page
+- ☐ Implement video modal system:
+  - Add click-to-expand functionality for video thumbnails
+  - Create Bootstrap modal for video playback
+  - Implement video controls in modal view
+  - Add video description and metadata in modal
+  - Include close button and escape key functionality
 - ☐ Add a contact form
 - ☐ Upload videos to Vimeo
+- ☐ Add video category tags
+- ☐ make thumbnails for top videos  on vimeo
 
 ## Development
 
@@ -38,7 +45,7 @@ The site uses:
 
 ## Contributing
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -am 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/modal-system`)
+3. Commit your changes (`git commit -am 'Add video modal system'`)
+4. Push to the branch (`git push origin modal-system`)
 5. Open a Pull Request
