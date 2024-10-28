@@ -39,7 +39,7 @@ helpers do
     album_id = ENV['ALBUM_ID']
     access_token = ENV['VIMEO_ACCESS_TOKEN']
 
-    url = "https://api.vimeo.com/users/#{user_id}/albums/#{album_id}/videos"
+    url = "https://api.vimeo.com/users/#{user_id}/albums/#{album_id}/videos?sort=manual"
     headers = {
       "Authorization" => "Bearer #{access_token}"
     }
