@@ -2,8 +2,8 @@
 <div class="container-fluid p-3 p-md-5 photogrid-padding">
   <div id="gallery">
     <% fetch_cloudinary_photos.each do |photo| %>
-      <%# Optimize with auto resolution %>
-      <% thumbnail_url = photo['secure_url'].sub('/upload/', '/upload/q_auto,f_auto/') %>
+      <%# Optimize with lower thumbnail size %>
+      <% thumbnail_url = photo['secure_url'].sub('/upload/', '/upload/h_600,q_auto,f_auto/') %>
       <% fullsize_url = photo['secure_url'].sub('/upload/', '/upload/q_auto,f_auto/') %>
 
       <a href="<%= fullsize_url %>"
