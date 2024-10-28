@@ -25,7 +25,12 @@
   text-transform: uppercase;
   color: #fff;
 }
+
 .nav-button-home img {
   width: 80px;
   padding-bottom: 4px;
+}
+
+#nav-button-home {
+  padding-left: 0 !important; // Remove left padding for the link
 }
