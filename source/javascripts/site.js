@@ -1,3 +1,15 @@
+// Import Cloudinary library
+const cloudinary = require('cloudinary').v2;
+
+// Configure Cloudinary with your credentials from environment variables
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+
+
 function scrollTrigger(selector) {
   let els = document.querySelectorAll(selector);
   els = Array.from(els);
@@ -41,4 +53,15 @@ document.addEventListener('DOMContentLoaded', function() {
       videoModal.querySelector('iframe').src = '';
     });
   }
+});
+
+// Using Cloudinary Admin API
+cloudinary.api.resources({
+  type: 'upload',
+  prefix: 'your-folder-name/', // folder path
+  max_results: 500 // adjust as needed
+})
+.then(result => {
+  // result.resources has all your images
+  // Each image has URL, format, size, etc.
 });
