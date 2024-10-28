@@ -34,6 +34,7 @@ To set up environment variables in Netlify:
 - ☐ Upload videos to Vimeo
 - ☐ Add video category tags
 - ☐ make thumbnails for top videos  on vimeo
+- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU)
 
 ## Development
 
