@@ -1,9 +1,14 @@
- <div class="reel-section">
+<% videos = fetch_vimeo_videos %>
+<% video = videos['data'].first %>
+<div class="reel-section">
   <div class="reel-container">
     <div class="video-wrapper">
       <!-- Placeholder -->
       <div class="placeholder">
-        <%= image_tag "reel_placeholder.png", alt: "Videography Reel Preview", class: "placeholder-image" %>
+        <img src="<%= video['pictures']['sizes'].last['link'] %>"
+             alt="Videography Reel Preview"
+             class="placeholder-image"
+             style='position:absolute;top:0;left:0;width:100%;height:100%;'>
         <div class="loading-overlay">
           <div class="loading-spinner"></div>
         </div>
@@ -11,7 +16,7 @@
 
       <!-- Video -->
       <div class="video-embed" style='padding:56.25% 0 0 0;position:relative;'>
-        <iframe src='https://player.vimeo.com/video/1023771021?h=c2b4f1950f&autoplay=1&loop=1&background=1&muted=1&controls=0'
+        <iframe src='https://player.vimeo.com/video/<%= video['uri'].split('/')[-1] %>?h=c2b4f1950f&autoplay=1&loop=1&background=1&muted=1&controls=0'
                 loading="lazy"
                 frameborder='0'
                 allow="autoplay; fullscreen"
