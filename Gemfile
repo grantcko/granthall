@@ -7,3 +7,4 @@ gem 'wdm', '~> 0.1', platforms: [:mswin, :mingw, :x64_mingw]
 gem 'dotenv'
 gem 'google-api-client'
 gem 'httparty'
+ruby '2.7.2'
