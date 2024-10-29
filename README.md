@@ -18,6 +18,11 @@ To set up environment variables in Netlify:
    - `CLOUDINARY_CLOUD_NAME`: Your Cloudinary cloud name
    - `CLOUDINARY_API_KEY`: Your Cloudinary API key
    - `CLOUDINARY_API_SECRET`: Your Cloudinary API secret
+   - `AWS_ACCESS_KEY_ID`: Your AWS access key
+   - `AWS_SECRET_ACCESS_KEY`: Your AWS secret key
+   - `AWS_REGION`: Your AWS region (e.g., us-east-1)
+   - `AWS_BUCKET_NAME`: Your S3 bucket name
+   - `CLOUDFRONT_URL`: Your CloudFront distribution URL
 
 ## Features
 - Dynamic video loading from Vimeo API
@@ -29,11 +34,11 @@ To set up environment variables in Netlify:
 ## TODO:
 - ☑ Upload videos to Vimeo
 - ☑ make thumbnails for top videos on vimeo
+- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
 - ☑ Implement video modal system:
 - ☐ add individual video links
 - ☐ Add video category tags
-- ☐ Add a contact form
-- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
+- ☐ Add a contact formal
 )
 
 ## Development
