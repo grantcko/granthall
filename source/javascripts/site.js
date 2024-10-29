@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Video Card Button Handler
-document.querySelectorAll('.video-card-button').forEach(button => {
+document.querySelectorAll('.album-button').forEach(button => {
   button.addEventListener('click', function() {
     const newAlbumId = this.getAttribute('data-album-id');
     // Update the ALBUM_ID and fetch videos again

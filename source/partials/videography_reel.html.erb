@@ -1,4 +1,4 @@
-<% videos = fetch_vimeo_videos %>
+<% videos = fetch_vimeo_videos(ENV['ALBUM_ID']) %>
 <% video = videos['data'].first %>
 <div class="reel-section">
   <div class="reel-container">

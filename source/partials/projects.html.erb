@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <div class="cards">
         <p class="pt-2 text-center"><b>VIDEOS</b></p>
-        <% videos = fetch_vimeo_videos %>
+        <% videos = fetch_vimeo_videos(ENV['ALBUM_ID']) %>
         <% if videos['data'].any? %>
           <% videos['data'].each do |video| %>
             <a href="<%= video['link'] %>" class="text-decoration-none" target="_blank">
