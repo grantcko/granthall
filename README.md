@@ -27,16 +27,12 @@ To set up environment variables in Netlify:
 - Bootstrap integration
 
 ## TODO:
-- ☐ Implement video modal system:
-  - Add click-to-expand functionality for video thumbnails
-  - Create Bootstrap modal for video playback
-  - Implement video controls in modal view
-  - Add video description and metadata in modal
-  - Include close button and escape key functionality
-- ☐ Add a contact form
-- ☐ Upload videos to Vimeo
+- ☑ Upload videos to Vimeo
+- ☑ make thumbnails for top videos on vimeo
+- ☑ Implement video modal system:
+- ☐ add individual video links
 - ☐ Add video category tags
-- ☐ make thumbnails for top videos  on vimeo
+- ☐ Add a contact form
 - ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
 )
 
