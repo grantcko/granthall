@@ -28,20 +28,46 @@ document.addEventListener('DOMContentLoaded', function() {
 // Video Modal Handler
 document.addEventListener('DOMContentLoaded', function() {
   const videoModal = document.getElementById('videoModal');
-  if (videoModal) {
-    videoModal.addEventListener('show.bs.modal', event => {
-      const button = event.relatedTarget;
-      const videoId = button.dataset.videoId;
-      const videoTitle = button.dataset.videoTitle;
-      videoModal.querySelector('.modal-title').textContent = videoTitle;
-      videoModal.querySelector('iframe').src = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=1&byline=0&portrait=0&controls=1&share=1&pip=0&speed=0&quality=0&collections=0&info=0`;
-    });
+  if (!videoModal) return;
 
-    videoModal.addEventListener('hidden.bs.modal', () => {
-      videoModal.querySelector('iframe').src = '';
-    });
-  }
+  // Check for video ID in URL hash on page load
+  const videoId = window.location.hash.slice(1);
+  if (videoId) openVideoModal(videoId);
+
+  // Handle modal opening
+  videoModal.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget;
+    const videoId = button.dataset.videoId;
+    const videoTitle = button.dataset.videoTitle;
+
+    updateModalContent(videoModal, videoId, videoTitle);
+    window.history.pushState({}, '', `#${videoId}`);
+  });
+
+  // Handle modal closing
+  videoModal.addEventListener('hidden.bs.modal', () => {
+    window.history.pushState({}, '', window.location.pathname);
+    videoModal.querySelector('iframe').src = '';
+  });
 });
+
+function updateModalContent(modal, videoId, videoTitle) {
+  modal.querySelector('.modal-title').textContent = videoTitle;
+  modal.querySelector('iframe').src = getVimeoEmbedUrl(videoId);
+}
+
+function getVimeoEmbedUrl(videoId) {
+  return `https://player.vimeo.com/video/${videoId}?autoplay=1&title=1&byline=0&portrait=0&controls=1&share=1&pip=0&speed=0&quality=0&collections=0&info=0`;
+}
+
+function openVideoModal(videoId) {
+  const button = document.querySelector(`[data-video-id="${videoId}"]`);
+  if (!button) return;
+
+  const modal = new bootstrap.Modal(videoModal);
+  updateModalContent(videoModal, videoId, button.dataset.videoTitle);
+  modal.show();
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize Justified Gallery
