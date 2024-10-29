@@ -1,35 +1,119 @@
 <div class="container vidgrid-padding">
   <!-- Album Selection Buttons -->
-  <div class="album-buttons mb-3">
-    <button class="btn btn-primary album-button" data-album-id="<%= ENV['ALBUM_ID'] %>">FEATURED</button>
-    <button class="btn btn-primary album-button" data-album-id="<%= ENV['EVERYTHING_ALBUM_ID'] %>">EVERYTHING</button>
-    <button class="btn btn-primary album-button" data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">MISC</button>
-    <button class="btn btn-primary album-button" data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">MISC</button>
+  <div class="album-buttons">
+    <button class="album-button" data-album-id="<%= ENV['ALBUM_ID'] %>">FEATURED</button>
+    <button class="album-button" data-album-id="<%= ENV['CORPORATE_ALBUM_ID'] %>">CORPORATE</button>
+    <button class="album-button" data-album-id="<%= ENV['EVERYTHING_ALBUM_ID'] %>">EVERYTHING</button>
+    <button class="album-button" data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">MISC</button>
   </div>
 
-  <!-- Individual Videos with Modal -->
-  <div class="row">
-    <% videos = fetch_vimeo_videos(ENV['ALBUM_ID']) %>
-    <% if videos['data'].any? %>
-      <% videos['data'].each do |video| %>
-        <div class="col-lg-4 col-md-6 mb-2">
-          <button class="video-card-button w-100"
-                  data-bs-toggle="modal"
-                  data-bs-target="#videoModal"
-                  data-video-id="<%= video['uri'].split('/')[-1] %>"
-                  data-video-title="<%= video['name'] %>"
-                  data-video-url="<%= video['link'] %>"
-                  data-album-id="<%= ENV['ALBUM_ID'] %>">
-            <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
-              <img src="<%= video['pictures']['sizes'].last['link'] %>"
-                   alt="<%= video['name'] %>"
-                   style='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;'>
-            </div>
-            <h3 class="mt-2 h5"><%= video['name'] %></h3>
-          </button>
-        </div>
+  <!-- Video Grids -->
+  <div class="video-grid" data-album-id="<%= ENV['ALBUM_ID'] %>">
+    <div class="row">
+      <% videos = fetch_vimeo_videos(ENV['ALBUM_ID']) %>
+      <% if videos['data'].any? %>
+        <% videos['data'].each do |video| %>
+          <div class="col-lg-4 col-md-6 mb-2">
+            <button class="video-card-button w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#videoModal"
+                    data-video-id="<%= video['uri'].split('/')[-1] %>"
+                    data-video-title="<%= video['name'] %>"
+                    data-video-url="<%= video['link'] %>"
+                    data-album-id="<%= ENV['ALBUM_ID'] %>">
+              <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
+                <img src="<%= video['pictures']['sizes'].last['link'] %>"
+                     alt="<%= video['name'] %>"
+                     loading="lazy"
+                     style='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;'>
+              </div>
+              <h3 class="mt-2 h5"><%= video['name'] %></h3>
+            </button>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+  </div>
+
+  <div class="video-grid" data-album-id="<%= ENV['EVERYTHING_ALBUM_ID'] %>">
+    <div class="row">
+      <% videos = fetch_vimeo_videos(ENV['EVERYTHING_ALBUM_ID']) %>
+      <% if videos['data'].any? %>
+        <% videos['data'].each do |video| %>
+          <div class="col-lg-4 col-md-6 mb-2">
+            <button class="video-card-button w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#videoModal"
+                    data-video-id="<%= video['uri'].split('/')[-1] %>"
+                    data-video-title="<%= video['name'] %>"
+                    data-video-url="<%= video['link'] %>"
+                    data-album-id="<%= ENV['EVERYTHING_ALBUM_ID'] %>">
+              <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
+                <img src="<%= video['pictures']['sizes'].last['link'] %>"
+                     alt="<%= video['name'] %>"
+                     loading="lazy"
+                     style='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;'>
+              </div>
+              <h3 class="mt-2 h5"><%= video['name'] %></h3>
+            </button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="video-grid" data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">
+    <div class="row">
+      <% videos = fetch_vimeo_videos(ENV['MISC_ALBUM_ID']) %>
+      <% if videos['data'].any? %>
+        <% videos['data'].each do |video| %>
+          <div class="col-lg-4 col-md-6 mb-2">
+            <button class="video-card-button w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#videoModal"
+                    data-video-id="<%= video['uri'].split('/')[-1] %>"
+                    data-video-title="<%= video['name'] %>"
+                    data-video-url="<%= video['link'] %>"
+                    data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">
+              <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
+                <img src="<%= video['pictures']['sizes'].last['link'] %>"
+                     alt="<%= video['name'] %>"
+                     loading="lazy"
+                     style='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;'>
+              </div>
+              <h3 class="mt-2 h5"><%= video['name'] %></h3>
+            </button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="video-grid" data-album-id="<%= ENV['CORPORATE_ALBUM_ID'] %>">
+    <div class="row">
+      <% videos = fetch_vimeo_videos(ENV['CORPORATE_ALBUM_ID']) %>
+      <% if videos['data'].any? %>
+        <% videos['data'].each do |video| %>
+          <div class="col-lg-4 col-md-6 mb-2">
+            <button class="video-card-button w-100"
+                    data-bs-toggle="modal"
+                    data-bs-target="#videoModal"
+                    data-video-id="<%= video['uri'].split('/')[-1] %>"
+                    data-video-title="<%= video['name'] %>"
+                    data-video-url="<%= video['link'] %>"
+                    data-album-id="<%= ENV['CORPORATE_ALBUM_ID'] %>">
+              <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
+                <img src="<%= video['pictures']['sizes'].last['link'] %>"
+                     alt="<%= video['name'] %>"
+                     loading="lazy"
+                     style='position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;'>
+              </div>
+              <h3 class="mt-2 h5"><%= video['name'] %></h3>
+            </button>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <!-- Simple Modal -->

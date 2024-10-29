@@ -96,13 +96,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Video Card Button Handler
-document.querySelectorAll('.album-button').forEach(button => {
-  button.addEventListener('click', function() {
-    const newAlbumId = this.getAttribute('data-album-id');
-    // Update the ALBUM_ID and fetch videos again
-    // This part depends on how you want to handle the fetch and update
-    console.log('New Album ID:', newAlbumId);
-    // Example: fetch_vimeo_videos(newAlbumId);
+document.addEventListener('DOMContentLoaded', function() {
+  const buttons = document.querySelectorAll('.album-button');
+
+  // Show first grid and activate first button by default
+  document.querySelector('.video-grid').classList.add('active');
+  document.querySelector('.album-button').classList.add('active');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Add active class to clicked button
+      this.classList.add('active');
+
+      const albumId = this.dataset.albumId;
+      document.querySelectorAll('.video-grid').forEach(grid => {
+        grid.classList.toggle('active', grid.dataset.albumId === albumId);
+      });
+    });
   });
 });
