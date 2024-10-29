@@ -95,3 +95,14 @@ document.addEventListener('DOMContentLoaded', function() {
     lightbox.init();
   });
 });
+
+// Video Card Button Handler
+document.querySelectorAll('.video-card-button').forEach(button => {
+  button.addEventListener('click', function() {
+    const newAlbumId = this.getAttribute('data-album-id');
+    // Update the ALBUM_ID and fetch videos again
+    // This part depends on how you want to handle the fetch and update
+    console.log('New Album ID:', newAlbumId);
+    // Example: fetch_vimeo_videos(newAlbumId);
+  });
+});

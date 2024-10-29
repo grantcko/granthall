@@ -32,12 +32,11 @@ page '/*.txt', layout: false
 # https://middlemanapp.com/basics/helper-methods/
 
 helpers do
-  def fetch_vimeo_videos
+  def fetch_vimeo_videos(album_id)
     require 'httparty'
 
     begin
       user_id = ENV['USER_ID']
-      album_id = ENV['ALBUM_ID']
       access_token = ENV['VIMEO_ACCESS_TOKEN']
 
       # Debug output
@@ -222,4 +221,4 @@ end
 
 # Configure URLs to include or exclude .html extension
 # Option 1: Remove .html from URLs (recommended for cleaner URLs)
-activate :directory_indexes
+# activate :directory_indexes

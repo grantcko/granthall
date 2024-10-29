@@ -1,7 +1,15 @@
 <div class="container vidgrid-padding">
+  <!-- Album Selection Buttons -->
+  <div class="album-buttons mb-3">
+    <button class="btn btn-primary album-button" data-album-id="<%= ENV['ALBUM_ID'] %>">FEATURED</button>
+    <button class="btn btn-primary album-button" data-album-id="<%= ENV['CORPORATE_ALBUM_ID'] %>">CORPORATE</button>
+    <button class="btn btn-primary album-button" data-album-id="<%= ENV['EVERYTHING_ALBUM_ID'] %>">EVERYTHING</button>
+    <button class="btn btn-primary album-button" data-album-id="<%= ENV['MISC_ALBUM_ID'] %>">MISC</button>
+  </div>
+
   <!-- Individual Videos with Modal -->
   <div class="row">
-    <% videos = fetch_vimeo_videos %>
+    <% videos = fetch_vimeo_videos(ENV['ALBUM_ID']) %>
     <% if videos['data'].any? %>
       <% videos['data'].each do |video| %>
         <div class="col-lg-4 col-md-6 mb-2">
@@ -10,7 +18,8 @@
                   data-bs-target="#videoModal"
                   data-video-id="<%= video['uri'].split('/')[-1] %>"
                   data-video-title="<%= video['name'] %>"
-                  data-video-url="<%= video['link'] %>">
+                  data-video-url="<%= video['link'] %>"
+                  data-album-id="<%= ENV['ALBUM_ID'] %>">
             <div class="video-thumbnail" style='padding:56.25% 0 0 0;position:relative;'>
               <img src="<%= video['pictures']['sizes'].last['link'] %>"
                    alt="<%= video['name'] %>"
