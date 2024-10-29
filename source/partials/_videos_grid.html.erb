@@ -1,0 +1,54 @@
+<div class="container video-grid">
+  <% videos = fetch_aws_videos %>
+  <% if videos['data'].any? %>
+    <div class="row g-4">
+      <% videos['data'].each do |video| %>
+        <div class="col-lg-4 col-md-6">
+          <div class="video-card" data-bs-toggle="modal" data-bs-target="#modal-<%= video['id'] %>">
+            <div class="thumbnail-wrapper">
+              <img src="<%= video['thumbnail_url'].presence || 'images/reel_placeholder.png' %>" alt="<%= video['name'] %>" class="img-fluid">
+            </div>
+            <div class="video-info">
+              <h3><%= video['name'] %></h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for each video -->
+        <div class="modal fade" id="modal-<%= video['id'] %>" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><%= video['name'] %></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <video
+                  id="video-<%= video['id'] %>"
+                  class="video-js"
+                  controls
+                  preload="auto"
+                  width="100%"
+                  data-setup='{
+                    "fluid": true,
+                    "playbackRates": [0.5, 1, 1.5, 2],
+                    "controlBar": {
+                      "volumePanel": {"inline": false}
+                    }
+                  }'>
+                  <source src="<%= video['url'] %>" type="video/<%= video['type'] %>">
+                  <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                  </p>
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">No videos found</p>
+  <% end %>
+</div>

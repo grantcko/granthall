@@ -118,3 +118,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle video modal closing
+  const modals = document.querySelectorAll('.modal');
+
+  modals.forEach(modal => {
+    modal.addEventListener('hidden.bs.modal', function() {
+      const videoId = this.querySelector('.video-js').id;
+      const player = videojs(videoId);
+      if (player) {
+        player.pause();
+        player.currentTime(0);
+      }
+    });
+  });
+});
