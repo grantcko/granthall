@@ -219,3 +219,7 @@ end
 #     source: '.tmp/dist',
 #     latency: 1
 # end
+
+# Configure URLs to include or exclude .html extension
+# Option 1: Remove .html from URLs (recommended for cleaner URLs)
+activate :directory_indexes
