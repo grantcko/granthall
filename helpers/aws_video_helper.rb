@@ -12,23 +12,28 @@ module AwsVideoHelper
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     )
 
-    # Ensure we get the full CloudFront URL
-    cloudfront_url = ENV['CLOUDFRONT_URL'].to_s.strip
-    cloudfront_url = cloudfront_url.split.last if cloudfront_url.include?("\n")
-
     begin
+      # First, let's list ALL objects to debug
       response = s3_client.list_objects_v2(
         bucket: ENV['AWS_BUCKET_NAME'],
         prefix: 'videos/'
       )
 
-      videos = response.contents
+      puts "\nAll objects in videos/:"
+      response.contents.each do |obj|
+        puts "- #{obj.key} (#{obj.last_modified})"
+      end
+
+      cloudfront_url = ENV['CLOUDFRONT_URL'].to_s.strip.split.last
+      all_contents = response.contents
+      videos = all_contents
         .select { |obj| obj.key.end_with?('original.mp4') }
         .map do |video_object|
-          folder_path = File.dirname(video_object.key)
-          folder_name = folder_path.split('/')[1] # Gets "001" from "videos/001"
+          puts "\nProcessing video: #{video_object.key}"
 
-          # Try to fetch metadata.json from the folder
+          folder_name = video_object.key.split('/')[1]
+          folder_path = File.dirname(video_object.key)
+
           metadata = {}
           begin
             metadata_response = s3_client.get_object(
@@ -36,26 +41,36 @@ module AwsVideoHelper
               key: "#{folder_path}/metadata.json"
             )
             metadata = JSON.parse(metadata_response.body.read)
-          rescue Aws::S3::Errors::NoSuchKey
-            # No metadata file exists, use defaults
+            puts "Found metadata for #{folder_name}"
+          rescue => e
+            puts "No metadata found for #{folder_name}: #{e.message}"
           end
 
-          # Check for thumbnail
           thumbnail_key = "#{folder_path}/thumbnail.png"
-          thumbnail_exists = response.contents.any? { |obj| obj.key == thumbnail_key }
+          thumbnail_exists = all_contents.any? { |obj| obj.key == thumbnail_key }
+          puts "Thumbnail exists: #{thumbnail_exists}"
+
+          created_at = if metadata['created_at']
+                        metadata['created_at']
+                      else
+                        video_object.last_modified.iso8601
+                      end
 
           {
             'id' => folder_name,
             'name' => metadata['title'] || folder_name,
             'url' => File.join(cloudfront_url, video_object.key),
             'thumbnail_url' => thumbnail_exists ? File.join(cloudfront_url, thumbnail_key) : nil,
-            'type' => 'mp4'
+            'type' => 'mp4',
+            'created_at' => created_at
           }
         end
 
-      { 'data' => videos }
+      puts "\nProcessed #{videos.length} videos successfully"
+      { 'data' => videos.sort_by { |v| v['id'] } }
     rescue => e
       puts "Error: #{e.message}"
+      puts e.backtrace
       { 'data' => [] }
     end
   end

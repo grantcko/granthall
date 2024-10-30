@@ -1,9 +1,6 @@
 # personal-profile
 [THIS](https://granthall.me/) is my personal profile/porfolio website.
 
-Hosting: Netlify
-
-Domain name service: [spaceship](https://spaceship.com)
 
 ## Environment Variables
 
@@ -25,23 +22,39 @@ To set up environment variables in Netlify:
    - `CLOUDFRONT_URL`: Your CloudFront distribution URL
 
 ## Features
-- Dynamic video loading from Vimeo API
+- Video hosting via AWS S3 and CloudFront
+- Dynamic video metadata management using S3 metadata.json files
 - GitHub projects integration
 - Responsive design
 - Image optimization
 - Bootstrap integration
+- Video.js player integration
+
+## Tools
+- AWS S3 for video storage
+- Spaceship for domain name service
+- CloudFront for video delivery
+- Video.js for video playback
+- GitHub API for project integration
+- Cloudinary for image hosting and optimization
+- Bootstrap for responsive design
+- Middleman for static site generation
+- Ruby for scripting and automation
+- Netlify for hosting and deployment
 
 ## TODO:
 - ☑ Upload videos to Vimeo
 - ☑ make thumbnails for top videos on vimeo
-- ☐ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
-- upload videos
+- ☑ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
 - setup tagging
 - setup thumbnails
+- ☐ upload videos, upload thumbnails, write metadata
 - ☑ Implement video modal system:
 - ☐ add individual video links
 - ☐ Add video category tags
 - ☐ Add a contact formal
+- ☐ redirect thegranthall.com to granthall.me
+- ☐ increase security
 )
 
 ## Development

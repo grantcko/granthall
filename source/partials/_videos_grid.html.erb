@@ -15,7 +15,14 @@
               >
             </div>
             <div class="video-info">
-              <h3><%= video['name'] %></h3>
+              <div class="d-flex justify-content-between align-items-center">
+                <h3><%= video['name'] %></h3>
+                <h4 class="video-date">
+                  <% if video['created_at'] %>
+                    <%= Date.parse(video['created_at'].to_s).strftime("%b %Y").upcase %>
+                  <% end %>
+                </h4>
+              </div>
             </div>
           </div>
         </div>
