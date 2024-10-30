@@ -1,12 +1,16 @@
 #!/bin/zsh
 
 # Check if directory argument is provided
-if [ "$1" ]; then
-    cd "$1" || { echo "❌ Cannot access directory: $1"; exit 1; }
+if [ -z "$1" ]; then
+    echo "❌ No directory argument provided!"
+    exit 1
 fi
 
 # Set base directory
-BASE_DIR="$(pwd)"
+BASE_DIR="$1"
+
+# Change to the base directory
+cd "$BASE_DIR" || { echo "❌ Cannot access directory: $BASE_DIR"; exit 1; }
 VIDEOS_DIR="$BASE_DIR"
 
 echo "🎥 Video Organization Script"
@@ -56,6 +60,41 @@ for video in "${video_files[@]}"; do
     echo "Tags (comma-separated):"
     read tags
 
+    # Date handling
+    echo "\nEnter creation date:"
+    while true; do
+        echo "Day (1-31):"
+        read day
+        if [[ $day =~ ^[0-9]+$ ]] && [ $day -ge 1 ] && [ $day -le 31 ]; then
+            break
+        else
+            echo "⚠️  Please enter a valid day (1-31)"
+        fi
+    done
+
+    while true; do
+        echo "Month (1-12):"
+        read month
+        if [[ $month =~ ^[0-9]+$ ]] && [ $month -ge 1 ] && [ $month -le 12 ]; then
+            break
+        else
+            echo "⚠️  Please enter a valid month (1-12)"
+        fi
+    done
+
+    while true; do
+        echo "Year (YYYY):"
+        read year
+        if [[ $year =~ ^[0-9]{4}$ ]] && [ $year -ge 1900 ] && [ $year -le $(date +%Y) ]; then
+            break
+        else
+            echo "⚠️  Please enter a valid year (1900-$(date +%Y))"
+        fi
+    done
+
+    # Format date in ISO8601 with time set to noon UTC
+    formatted_date=$(printf "%04d-%02d-%02dT12:00:00Z" $year $month $day)
+
     # Convert tags string to JSON array
     tags_json="["
     if [[ -n "$tags" ]]; then
@@ -89,12 +128,12 @@ for video in "${video_files[@]}"; do
         echo "✅ Generated thumbnail using scene detection"
     fi
 
-    # Create metadata.json
+    # Create metadata.json with custom date
     cat > "$folder_path/metadata.json" << EOF
 {
     "title": "$(sanitize_json "$title")",
     "description": "$(sanitize_json "$description")",
-    "created_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+    "created_at": "$formatted_date",
     "tags": $tags_json
 }
 EOF

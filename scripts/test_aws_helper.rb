@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'dotenv/load'
 require 'json'
-require_relative 'helpers/aws_video_helper'
+require_relative '../helpers/aws_video_helper'
 
 include AwsVideoHelper
 
