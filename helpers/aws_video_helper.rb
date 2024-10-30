@@ -28,20 +28,27 @@ module AwsVideoHelper
           folder_path = File.dirname(video_object.key)
           folder_name = folder_path.split('/')[1] # Gets "001" from "videos/001"
 
+          # Try to fetch metadata.json from the folder
+          metadata = {}
+          begin
+            metadata_response = s3_client.get_object(
+              bucket: ENV['AWS_BUCKET_NAME'],
+              key: "#{folder_path}/metadata.json"
+            )
+            metadata = JSON.parse(metadata_response.body.read)
+          rescue Aws::S3::Errors::NoSuchKey
+            # No metadata file exists, use defaults
+          end
+
           # Check for thumbnail
           thumbnail_key = "#{folder_path}/thumbnail.png"
           thumbnail_exists = response.contents.any? { |obj| obj.key == thumbnail_key }
 
-          # Build URLs
-          video_url = File.join(cloudfront_url, video_object.key)
-          thumbnail_url = thumbnail_exists ? File.join(cloudfront_url, thumbnail_key) : nil
-
           {
             'id' => folder_name,
-            'name' => folder_name,
-            'description' => nil,
-            'url' => video_url,
-            'thumbnail_url' => thumbnail_url,
+            'name' => metadata['title'] || folder_name,
+            'url' => File.join(cloudfront_url, video_object.key),
+            'thumbnail_url' => thumbnail_exists ? File.join(cloudfront_url, thumbnail_key) : nil,
             'type' => 'mp4'
           }
         end
