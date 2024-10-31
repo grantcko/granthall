@@ -1,5 +1,6 @@
 require 'aws-sdk-s3'
 require 'aws-sdk-cloudfront'
+require 'aws-sdk-mediaconvert'
 require 'csv'
 
 module AwsVideoHelper
@@ -73,5 +74,108 @@ module AwsVideoHelper
       puts e.backtrace
       { 'data' => [] }
     end
+  end
+
+  def create_hls_video(input_key)
+    client = Aws::MediaConvert::Client.new(
+      region: ENV['AWS_REGION'],
+      endpoint: ENV['MEDIACONVERT_ENDPOINT']
+    )
+
+    job_settings = {
+      role: ENV['MEDIACONVERT_ROLE_ARN'],
+      settings: {
+        timecode_config: {
+          source: "ZEROBASED"
+        },
+        inputs: [{
+          file_input: "s3://#{ENV['AWS_BUCKET_NAME']}/#{input_key}",
+          audio_selectors: {
+            "Audio Selector 1": {
+              default_selection: "DEFAULT"
+            }
+          }
+        }],
+        output_groups: [{
+          name: "HLS",
+          output_group_settings: {
+            type: "HLS_GROUP_SETTINGS",
+            hls_group_settings: {
+              segment_length: 6,  # Shorter segments for faster startup
+              min_segment_length: 0,
+              destination: "s3://#{ENV['AWS_BUCKET_NAME']}/#{File.dirname(input_key)}/hls/"
+            }
+          },
+          outputs: [
+            # 1080p high quality
+            {
+              name_modifier: "1080p",
+              video_description: {
+                width: 1920,
+                height: 1080,
+                codec_settings: {
+                  codec: "H_264",
+                  h264_settings: {
+                    rate_control_mode: "QVBR",
+                    max_bitrate: 5000000
+                  }
+                }
+              }
+            },
+            # 720p medium quality
+            {
+              name_modifier: "720p",
+              video_description: {
+                width: 1280,
+                height: 720,
+                codec_settings: {
+                  codec: "H_264",
+                  h264_settings: {
+                    rate_control_mode: "QVBR",
+                    max_bitrate: 3000000
+                  }
+                }
+              }
+            },
+            # 480p low quality for slow connections
+            {
+              name_modifier: "480p",
+              video_description: {
+                width: 854,
+                height: 480,
+                codec_settings: {
+                  codec: "H_264",
+                  h264_settings: {
+                    rate_control_mode: "QVBR",
+                    max_bitrate: 1000000
+                  }
+                }
+              }
+            }
+          ].map do |output|
+            output.merge({
+              container_settings: { container: "M3U8" },
+              audio_descriptions: [{
+                codec_settings: {
+                  codec: "AAC",
+                  aac_settings: {
+                    rate_control_mode: "CBR",
+                    bitrate: 96000,
+                    coding_mode: "CODING_MODE_2_0",
+                    sample_rate: 48000
+                  }
+                }
+              }]
+            })
+          end
+        }]
+      }
+    }
+
+    response = client.create_job(job_settings)
+    response.job.id
+  rescue Aws::MediaConvert::Errors::ServiceError => e
+    puts "❌ Error: #{e.message}"
+    nil
   end
 end
