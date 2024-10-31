@@ -129,33 +129,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     modal.addEventListener('show.bs.modal', function() {
       if (!player) {
-        // Log the HLS URL
-        const hlsSource = videoElement.querySelector('source[type="application/x-mpegURL"]');
-        console.log('HLS URL:', hlsSource.src);
-
         player = videojs(videoElement, {
           fluid: true,
           controls: true,
-          autoplay: true,
+          autoplay: false,
           preload: 'auto',
+          playbackRates: [0.5, 1, 1.5, 2],
           html5: {
             hls: {
               enableLowInitialPlaylist: true,
               smoothQualityChange: true,
-              overrideNative: true,
-              debug: true  // Enable HLS debugging
-            }
+              overrideNative: true
+            },
+            nativeVideoTracks: false,
+            nativeAudioTracks: false,
+            nativeTextTracks: false
           }
-        });
-
-        // Add error handling
-        player.on('error', function() {
-          console.error('Video Error:', player.error());
-        });
-
-        // Log when source is loaded
-        player.on('loadedmetadata', function() {
-          console.log('Video metadata loaded');
         });
       }
     });
