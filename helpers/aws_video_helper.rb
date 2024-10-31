@@ -109,12 +109,6 @@ module AwsVideoHelper
     }
 
     response = client.create_job(job_settings)
-
-    if response.job.id
-      # Wait for job to complete and rename files
-      rename_hls_files(hls_path)
-    end
-
     response.job.id
   rescue Aws::MediaConvert::Errors::ServiceError => e
     puts "❌ Error: #{e.message}"
@@ -129,7 +123,6 @@ module AwsVideoHelper
     )
 
     begin
-      # First, let's list ALL objects to debug
       response = s3_client.list_objects_v2(
         bucket: ENV['AWS_BUCKET_NAME'],
         prefix: 'videos/'
@@ -143,7 +136,7 @@ module AwsVideoHelper
       cloudfront_url = ENV['CLOUDFRONT_URL'].to_s.strip.split.last
       all_contents = response.contents
       videos = all_contents
-        .select { |obj| obj.key.end_with?('original.mp4') }
+        .select { |obj| obj.key.end_with?('video.mp4') }
         .map do |video_object|
           puts "\nProcessing video: #{video_object.key}"
 
@@ -188,70 +181,6 @@ module AwsVideoHelper
       puts "Error: #{e.message}"
       puts e.backtrace
       { 'data' => [] }
-    end
-  end
-
-  private
-
-  def rename_hls_files(hls_path)
-    s3_client = Aws::S3::Client.new(
-      region: ENV['AWS_REGION'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-    )
-
-    # Wait for files to appear (max 60 seconds)
-    12.times do |i|
-      sleep 5
-      response = s3_client.list_objects_v2(
-        bucket: ENV['AWS_BUCKET_NAME'],
-        prefix: "#{hls_path}/"
-      )
-
-      if response.contents.any?
-        puts "\nRenaming HLS files..."
-
-        # Group files by type for better logging
-        manifests = []
-        segments = []
-
-        response.contents.each do |obj|
-          next unless obj.key.include?('original')
-
-          new_key = obj.key.gsub('original', 'index')
-
-          # Copy file with new name
-          s3_client.copy_object(
-            bucket: ENV['AWS_BUCKET_NAME'],
-            copy_source: "#{ENV['AWS_BUCKET_NAME']}/#{obj.key}",
-            key: new_key
-          )
-
-          # Delete original file
-          s3_client.delete_object(
-            bucket: ENV['AWS_BUCKET_NAME'],
-            key: obj.key
-          )
-
-          # Store for logging
-          if obj.key.end_with?('.m3u8')
-            manifests << new_key
-          else
-            segments << new_key
-          end
-        end
-
-        # Log results in a cleaner format
-        puts "\nRenamed manifest files:"
-        manifests.sort.each { |m| puts "  ✓ #{File.basename(m)}" }
-
-        puts "\nRenamed segment files:"
-        segments.sort.each { |s| puts "  ✓ #{File.basename(s)}" }
-
-        break
-      else
-        print "."
-      end
     end
   end
 end

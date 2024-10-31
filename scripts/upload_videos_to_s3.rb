@@ -47,7 +47,7 @@ def upload_folder(local_folder)
   base_s3_path = "videos/#{folder_name}"
 
   required_files = {
-    video: File.join(local_folder, 'original.mp4'),
+    video: File.join(local_folder, 'video.mp4'),
     thumbnail: File.join(local_folder, 'thumbnail.png'),
     metadata: File.join(local_folder, 'metadata.json')
   }
