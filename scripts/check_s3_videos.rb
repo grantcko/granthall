@@ -34,7 +34,7 @@ def check_folder_structure
     # Check for required files
     files = response.contents.select { |obj| obj.key.start_with?("#{prefix}#{folder}/") }
 
-    has_video = files.any? { |f| f.key.end_with?('original.mp4') }
+    has_video = files.any? { |f| f.key.end_with?('video.mp4') }
     has_thumbnail = files.any? { |f| f.key.end_with?('thumbnail.png') }
     has_metadata = files.any? { |f| f.key.end_with?('metadata.json') }
 
