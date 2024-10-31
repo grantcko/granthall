@@ -23,6 +23,11 @@ To set up environment variables in Netlify:
 
 ## Features
 - Video hosting via AWS S3 and CloudFront
+- Adaptive Bitrate (ABR) streaming
+  - Automatic quality switching based on viewer's connection
+  - Support for multiple devices and bandwidths
+  - Quality variants: 240p, 360p, 720p, 1080p
+  - HLS streaming protocol
 - Dynamic video metadata management using S3 metadata.json files
 - GitHub projects integration
 - Responsive design
@@ -48,14 +53,32 @@ To set up environment variables in Netlify:
 - ☑ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
 - setup tagging
 - setup thumbnails
-- ☐ upload videos, upload thumbnails, write metadata
+- ☑ upload videos, upload thumbnails, write metadata
 - ☑ Implement video modal system:
+- ☐ optimize videos
 - ☐ add individual video links
 - ☐ Add video category tags
-- ☐ Add a contact formal
+- ☐ Add a contact forma
 - ☐ redirect thegranthall.com to granthall.me
 - ☐ increase security
-)
+
+## AWS S3 bucket structure
+your-bucket/
+└── videos/
+    └── folder_name/
+        ├── original.mp4
+        ├── thumbnail.png
+        ├── metadata.json
+        └── hls/
+            ├── master.m3u8
+            ├── 1080p.m3u8
+            ├── 720p.m3u8
+            ├── 360p.m3u8
+            ├── 240p.m3u8
+            └── segments/
+                ├── 1080p_000.ts
+                ├── 720p_000.ts
+                └── ... (other segments)
 
 ## Development
 
