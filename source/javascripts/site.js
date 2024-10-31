@@ -120,17 +120,52 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Handle video modal closing
-  const modals = document.querySelectorAll('.modal');
+  // Initialize video players in modals
+  document.querySelectorAll('.modal').forEach(modal => {
+    const videoElement = modal.querySelector('video');
+    if (!videoElement) return;
 
-  modals.forEach(modal => {
+    let player = null;
+
+    modal.addEventListener('show.bs.modal', function() {
+      if (!player) {
+        // Log the HLS URL
+        const hlsSource = videoElement.querySelector('source[type="application/x-mpegURL"]');
+        console.log('HLS URL:', hlsSource.src);
+
+        player = videojs(videoElement, {
+          fluid: true,
+          controls: true,
+          autoplay: true,
+          preload: 'auto',
+          html5: {
+            hls: {
+              enableLowInitialPlaylist: true,
+              smoothQualityChange: true,
+              overrideNative: true,
+              debug: true  // Enable HLS debugging
+            }
+          }
+        });
+
+        // Add error handling
+        player.on('error', function() {
+          console.error('Video Error:', player.error());
+        });
+
+        // Log when source is loaded
+        player.on('loadedmetadata', function() {
+          console.log('Video metadata loaded');
+        });
+      }
+    });
+
     modal.addEventListener('hidden.bs.modal', function() {
-      const videoId = this.querySelector('.video-js').id;
-      const player = videojs(videoId);
       if (player) {
         player.pause();
-        player.currentTime(0);
       }
     });
   });
+
+  // Your existing gallery code...
 });

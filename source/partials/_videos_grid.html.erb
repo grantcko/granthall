@@ -9,8 +9,6 @@
             <div class="thumbnail-wrapper" style="position: relative; padding-top: 56.25%;">
               <img
                 src="<%= video['thumbnail_url'].presence || 'images/reel_placeholder.png' %>"
-                alt="<%= video['name'] %>"
-                class="img-fluid"
                 loading="lazy"
                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
               >
@@ -21,36 +19,33 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Modal for each video -->
-        <div class="modal fade" id="modal-<%= video['id'] %>" tabindex="-1" aria-hidden="true">
-          <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title"><%= video['name'] %></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body p-0">
-                <video
-                  id="video-<%= video['id'] %>"
-                  class="video-js"
-                  controls
-                  preload="auto"
-                  width="100%"
-                  data-setup='{
-                    "fluid": true,
-                    "playbackRates": [0.5, 1, 1.5, 2],
-                    "controlBar": {
-                      "volumePanel": {"inline": false}
-                    }
-                  }'>
-                  <source src="<%= video['url'] %>" type="video/<%= video['type'] %>">
-                  <p class="vjs-no-js">
-                    To view this video please enable JavaScript, and consider upgrading to a
-                    web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                  </p>
-                </video>
+          <!-- Video Modal -->
+          <div class="modal fade" id="modal-<%= video['id'] %>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><%= video['name'] %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                  <div class="video-wrapper">
+                    <video
+                      id="video-<%= video['id'] %>"
+                      class="video-js vjs-theme-forest"
+                      controls
+                      preload="auto"
+                      poster="<%= video['thumbnail_url'] %>"
+                      data-setup='{"fluid": true}'>
+                      <source
+                        src="<%= video['url'].gsub('video.mp4', 'hls/stream/video.m3u8') %>"
+                        type="application/x-mpegURL">
+                      <source
+                        src="<%= video['url'] %>"
+                        type="video/mp4">
+                    </video>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
