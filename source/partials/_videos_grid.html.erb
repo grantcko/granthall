@@ -1,8 +1,9 @@
 <div class="container video-grid">
   <% videos = fetch_aws_videos %>
   <% if videos['data'].any? %>
+    <% sorted_videos = videos['data'].sort_by { |video| Date.parse(video['created_at'].to_s) }.reverse %>
     <div class="row g-4">
-      <% videos['data'].each do |video| %>
+      <% sorted_videos.each do |video| %>
         <div class="col-lg-4 col-md-6">
           <div class="video-card" data-bs-toggle="modal" data-bs-target="#modal-<%= video['id'] %>">
             <div class="thumbnail-wrapper" style="position: relative; padding-top: 56.25%;">
@@ -17,11 +18,6 @@
             <div class="video-info">
               <div class="d-flex justify-content-between align-items-center">
                 <h3><%= video['name'] %></h3>
-                <h4 class="video-date">
-                  <% if video['created_at'] %>
-                    <%= Date.parse(video['created_at'].to_s).strftime("%b %Y").upcase %>
-                  <% end %>
-                </h4>
               </div>
             </div>
           </div>
