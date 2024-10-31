@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'bundler/setup'
 require 'dotenv/load'
 require 'json'
@@ -17,7 +19,7 @@ puts "Role ARN: #{ENV['MEDIACONVERT_ROLE_ARN']}"
 puts "Bucket: #{ENV['AWS_BUCKET_NAME']}"
 
 # Test with an existing video
-TEST_VIDEO = "videos/004/original.mp4"
+TEST_VIDEO = "videos/999/original.mp4"
 
 # Verify the source video exists
 s3 = Aws::S3::Client.new(region: ENV['AWS_REGION'])
@@ -41,25 +43,29 @@ begin
     puts "\n✅ MediaConvert job created successfully!"
     puts "Job ID: #{job_id}"
     puts "\n3. Job is now processing..."
-    puts "Check the AWS MediaConvert console for status:"
-    puts "https://#{ENV['AWS_REGION']}.console.aws.amazon.com/mediaconvert/home"
 
-    puts "\nHLS files will be created at:"
-    puts "s3://#{ENV['AWS_BUCKET_NAME']}/#{File.dirname(TEST_VIDEO)}/hls/"
+    # Wait for job to complete (max 60 seconds)
+    12.times do |i|
+      sleep 5
+      response = s3.list_objects_v2(
+        bucket: ENV['AWS_BUCKET_NAME'],
+        prefix: "#{File.dirname(TEST_VIDEO)}/hls/"
+      )
 
-    puts "\nExpected output files:"
-    puts "- master playlist: index.m3u8"
-    puts "- 1080p playlist: 1080p.m3u8"
-    puts "- 720p playlist: 720p.m3u8"
-    puts "- 480p playlist: 480p.m3u8"
-    puts "- video segments: *_*.ts"
+      if response.contents.any?
+        puts "\n4. HLS files created:"
+        response.contents.each do |obj|
+          puts "- #{obj.key} (#{obj.size} bytes)"
+        end
+        break
+      else
+        print "."
+      end
+    end
   else
     puts "❌ Failed to create MediaConvert job"
   end
 rescue => e
   puts "\n❌ Error: #{e.message}"
-  puts "\nFull error details:"
-  puts e.inspect
-  puts "\nBacktrace:"
   puts e.backtrace
 end
