@@ -13,13 +13,17 @@ module BunnyVideoHelper
       )
 
       if response.success?
-        videos = JSON.parse(response.body).map do |video|
+        videos = response.parsed_response['items'].map do |video|
           {
             id: video['guid'],
             name: video['title'],
-            thumbnail_url: video['thumbnailUrl'],
+            thumbnail_url: video['thumbnailFileName'] ? "https://your-cdn-url/#{video['thumbnailFileName']}" : 'images/reel_placeholder.png',
             url: video['playbackUrl'],
-            created_at: video['dateUploaded']
+            type: 'mp4', # Assuming the videos are in mp4 format
+            created_at: video['dateUploaded'],
+            views: video['views'],
+            length: video['length'],
+            status: video['status']
           }
         end
         { 'data' => videos }
