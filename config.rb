@@ -31,10 +31,10 @@ page '/*.txt', layout: false
 # Methods defined in the helpers block are available in templates
 # https://middlemanapp.com/basics/helper-methods/
 
-require_relative 'helpers/aws_video_helper'
+require_relative 'helpers/bunny_video_helper'
 
 helpers do
-  include AwsVideoHelper
+  include BunnyVideoHelper
 
   def fetch_vimeo_videos(album_id)
     require 'httparty'

@@ -1,9 +1,8 @@
 <div class="container video-grid">
-  <% videos = fetch_aws_videos %>
+  <% videos = fetch_bunny_videos %>
   <% if videos['data'].any? %>
-    <% sorted_videos = videos['data'].sort_by { |video| Date.parse(video['created_at'].to_s) }.reverse %>
     <div class="row g-4">
-      <% sorted_videos.each do |video| %>
+      <% videos['data'].each do |video| %>
         <div class="col-lg-4 col-md-6">
           <div class="video-card" data-bs-toggle="modal" data-bs-target="#modal-<%= video['id'] %>">
             <div class="thumbnail-wrapper" style="position: relative; padding-top: 56.25%;">
