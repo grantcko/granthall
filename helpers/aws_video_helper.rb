@@ -123,57 +123,56 @@ module AwsVideoHelper
     )
 
     begin
-      response = s3_client.list_objects_v2(
+      # Only list folders in videos/
+      folders_response = s3_client.list_objects_v2(
         bucket: ENV['AWS_BUCKET_NAME'],
-        prefix: 'videos/'
+        prefix: 'videos/',
+        delimiter: '/'  # This makes it only return folders
       )
 
-      puts "\nAll objects in videos/:"
-      response.contents.each do |obj|
-        puts "- #{obj.key} (#{obj.last_modified})"
-      end
-
       cloudfront_url = ENV['CLOUDFRONT_URL'].to_s.strip.split.last
-      all_contents = response.contents
-      videos = all_contents
-        .select { |obj| obj.key.end_with?('video.mp4') }
-        .map do |video_object|
-          puts "\nProcessing video: #{video_object.key}"
+      videos = []
 
-          folder_name = video_object.key.split('/')[1]
-          folder_path = File.dirname(video_object.key)
+      folders_response.common_prefixes.each do |prefix|
+        folder = prefix.prefix
 
-          metadata = {}
-          begin
-            metadata_response = s3_client.get_object(
-              bucket: ENV['AWS_BUCKET_NAME'],
-              key: "#{folder_path}/metadata.json"
-            )
-            metadata = JSON.parse(metadata_response.body.read)
-            puts "Found metadata for #{folder_name}"
-          rescue => e
-            puts "No metadata found for #{folder_name}: #{e.message}"
-          end
+        # For each folder, specifically check for video.mp4, thumbnail.png, and metadata.json
+        folder_contents = s3_client.list_objects_v2(
+          bucket: ENV['AWS_BUCKET_NAME'],
+          prefix: folder,
+          delimiter: '/'
+        )
 
-          thumbnail_key = "#{folder_path}/thumbnail.png"
-          thumbnail_exists = all_contents.any? { |obj| obj.key == thumbnail_key }
-          puts "Thumbnail exists: #{thumbnail_exists}"
+        video_object = folder_contents.contents.find { |obj| obj.key.end_with?('video.mp4') }
+        next unless video_object
 
-          created_at = if metadata['created_at']
-                        metadata['created_at']
-                      else
-                        video_object.last_modified.iso8601
-                      end
+        puts "\nProcessing video: #{video_object.key}"
+        folder_name = video_object.key.split('/')[1]
 
-          {
-            'id' => folder_name,
-            'name' => metadata['title'] || folder_name,
-            'url' => File.join(cloudfront_url, video_object.key),
-            'thumbnail_url' => thumbnail_exists ? File.join(cloudfront_url, thumbnail_key) : nil,
-            'type' => 'mp4',
-            'created_at' => created_at
-          }
+        metadata = {}
+        begin
+          metadata_response = s3_client.get_object(
+            bucket: ENV['AWS_BUCKET_NAME'],
+            key: "#{folder}metadata.json"
+          )
+          metadata = JSON.parse(metadata_response.body.read)
+          puts "Found metadata for #{folder_name}"
+        rescue => e
+          puts "No metadata found for #{folder_name}: #{e.message}"
         end
+
+        thumbnail_exists = folder_contents.contents.any? { |obj| obj.key.end_with?('thumbnail.png') }
+        puts "Thumbnail exists: #{thumbnail_exists}"
+
+        videos << {
+          'id' => folder_name,
+          'name' => metadata['title'] || folder_name,
+          'url' => File.join(cloudfront_url, video_object.key),
+          'thumbnail_url' => thumbnail_exists ? File.join(cloudfront_url, "#{folder}thumbnail.png") : nil,
+          'type' => 'mp4',
+          'created_at' => metadata['created_at'] || video_object.last_modified.iso8601
+        }
+      end
 
       puts "\nProcessed #{videos.length} videos successfully"
       { 'data' => videos.sort_by { |v| v['id'] } }
