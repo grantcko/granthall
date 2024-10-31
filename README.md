@@ -1,5 +1,5 @@
 # personal-profile
-[THIS](https://granthall.me/) is my personal profile/porfolio website.
+[THIS](https://granthall.me/) is my personal profile/portfolio website.
 
 ## TODO:
 - ☑ Upload videos to Vimeo
@@ -12,16 +12,38 @@
 - ☐ optimize videos
 - ☐ add individual video links
 - ☐ Add video category tags
-- ☐ Add a contact forma
-- ☐ redirect thegranthall.com to granthall.me
-- ☐ increase security
+- ☐ Add a contact form
+- ☐ Redirect thegranthall.com to granthall.me
+- ☐ Increase security
 
-## Environment Variables
+## Bunny.net Integration
 
+### Overview
+Bunny.net is used for video hosting, metadata management, and thumbnail handling. It provides a robust platform for serving video content efficiently.
+
+### Features
+- **Video Upload**: Videos are uploaded to Bunny.net using a Ruby script that automates the process.
+- **Metadata Management**: Each video can have associated metadata, including title, description, tags, and upload date.
+- **Thumbnail Support**: Thumbnails can be uploaded alongside videos to provide a visual preview.
+- **Tagging System**: Videos can be tagged with predefined categories to facilitate organization and retrieval.
+- **Video Playback**: Integrated with Video.js for seamless video playback on the website.
+
+### Scripts
+- **`upload_video_to_bunny.rb`**: A script to upload videos to Bunny.net. It prompts for video file path, thumbnail, and metadata, then uploads the content.
+- **`update_bunny_tags.rb`**: Allows updating of video tags using a user-friendly interface with `tty-prompt`.
+
+### Usage
+1. **Upload Videos**: Run the `upload_video_to_bunny.rb` script to upload videos and their metadata.
+2. **Update Tags**: Use the `update_bunny_tags.rb` script to manage video tags interactively.
+3. **Display Videos**: Videos are fetched and displayed on the website using the `BunnyVideoHelper` module.
+
+### Environment Variables
 To set up environment variables in Netlify:
 1. Go to Site settings > Build & deploy
 2. Click on "Environment variables"
 3. Add the following variables:
+   - `BUNNY_LIBRARY_ID`: Your Bunny.net library ID
+   - `BUNNY_API_KEY`: Your Bunny.net API key
    - `USER_ID`: Your Vimeo user ID
    - `ALBUM_ID`: Your Vimeo album ID
    - `VIMEO_ACCESS_TOKEN`: Your Vimeo API access token
@@ -29,16 +51,14 @@ To set up environment variables in Netlify:
    - `CLOUDINARY_CLOUD_NAME`: Your Cloudinary cloud name
    - `CLOUDINARY_API_KEY`: Your Cloudinary API key
    - `CLOUDINARY_API_SECRET`: Your Cloudinary API secret
-   - `BUNNY_LIBRARY_ID`: Your Bunny.net library ID
-   - `BUNNY_API_KEY`: Your Bunny.net API key
 
 ## Tools
-- Video and photo hosting + optimization, metadata, and thumbnails via Bunny.net
-- Spaceship for domain name service
-- Video.js for video playback
-- GitHub API for project integration
-- Cloudinary for image hosting and optimization
-- Bootstrap for responsive design
-- Middleman for static site generation
-- Ruby for scripting and automation
-- Netlify for hosting and deployment
+- **Bunny.net**: Video and photo hosting, optimization, metadata, and thumbnails
+- **Spaceship**: Domain name service
+- **Video.js**: Video playback
+- **GitHub API**: Project integration
+- **Cloudinary**: Image hosting and optimization
+- **Bootstrap**: Responsive design
+- **Middleman**: Static site generation
+- **Ruby**: Scripting and automation
+- **Netlify**: Hosting and deployment
