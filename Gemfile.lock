@@ -24,6 +24,9 @@ GEM
     aws-sdk-kms (1.95.0)
       aws-sdk-core (~> 3, >= 3.210.0)
       aws-sigv4 (~> 1.5)
+    aws-sdk-mediaconvert (1.143.0)
+      aws-sdk-core (~> 3, >= 3.210.0)
+      aws-sigv4 (~> 1.5)
     aws-sdk-s3 (1.169.0)
       aws-sdk-core (~> 3, >= 3.210.0)
       aws-sdk-kms (~> 1)
@@ -183,6 +186,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 6.1.6.1)
   aws-sdk-cloudfront
+  aws-sdk-mediaconvert
   aws-sdk-s3
   cloudinary
   dotenv
