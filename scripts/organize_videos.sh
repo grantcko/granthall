@@ -6,6 +6,11 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+if [ -z "$2" ]; then
+    echo "❌ No start number argument provided!"
+    exit 1
+fi
+
 # Set base directory
 BASE_DIR="$1"
 
@@ -20,6 +25,43 @@ echo "Working directory: $BASE_DIR"
 # Function to sanitize input for JSON
 sanitize_json() {
     echo "$1" | sed 's/"/\\"/g'
+}
+
+# Function to read input with backspace support
+read_with_backspace() {
+    local prompt="$1"
+    local input
+
+    # Save current terminal settings
+    local old_stty=$(stty -g)
+
+    # Configure terminal
+    stty raw -echo
+
+    # Print prompt
+    echo -n "$prompt"
+
+    # Read input
+    input=""
+    while IFS= read -r -k1 char; do
+        if [[ "$char" == $'\x7f' ]]; then  # Backspace/Delete key
+            if [ ${#input} -gt 0 ]; then
+                input=${input:0:-1}
+                echo -n $'\b \b'
+            fi
+        elif [[ "$char" == $'\n' || "$char" == $'\r' ]]; then  # Enter key
+            echo
+            break
+        else
+            input+="$char"
+            echo -n "$char"
+        fi
+    done
+
+    # Restore terminal settings
+    stty "$old_stty"
+
+    echo "$input"
 }
 
 # First check if there are any video files
@@ -38,7 +80,7 @@ if [ ${#video_files[@]} -eq 0 ]; then
 fi
 
 # Process each video file
-count=1
+count="$2"
 for video in "${video_files[@]}"; do
     # Create padded folder number
     folder_num=$(printf "%03d" $count)
@@ -50,21 +92,17 @@ for video in "${video_files[@]}"; do
 
     # Get video metadata
     echo "\n📝 Enter metadata for $video:"
-    echo "Title (press enter to use filename):"
-    read title
+    title=$(read_with_backspace "Title (press enter to use filename): ")
     title=${title:-${video%.*}}  # Use filename if no title given
 
-    echo "Description:"
-    read description
+    description=$(read_with_backspace "Description: ")
 
-    echo "Tags (comma-separated):"
-    read tags
+    tags=$(read_with_backspace "Tags (comma-separated): ")
 
     # Date handling
     echo "\nEnter creation date:"
     while true; do
-        echo "Day (1-31):"
-        read day
+        day=$(read_with_backspace "Day (1-31): ")
         if [[ $day =~ ^[0-9]+$ ]] && [ $day -ge 1 ] && [ $day -le 31 ]; then
             break
         else
@@ -73,8 +111,7 @@ for video in "${video_files[@]}"; do
     done
 
     while true; do
-        echo "Month (1-12):"
-        read month
+        month=$(read_with_backspace "Month (1-12): ")
         if [[ $month =~ ^[0-9]+$ ]] && [ $month -ge 1 ] && [ $month -le 12 ]; then
             break
         else
@@ -83,8 +120,7 @@ for video in "${video_files[@]}"; do
     done
 
     while true; do
-        echo "Year (YYYY):"
-        read year
+        year=$(read_with_backspace "Year (YYYY): ")
         if [[ $year =~ ^[0-9]{4}$ ]] && [ $year -ge 1900 ] && [ $year -le $(date +%Y) ]; then
             break
         else
@@ -107,12 +143,10 @@ for video in "${video_files[@]}"; do
     tags_json+="]"
 
     # Thumbnail handling
-    echo "\n🖼  Add thumbnail? (y/N):"
-    read add_thumbnail
+    add_thumbnail=$(read_with_backspace "🖼  Add thumbnail? (y/N): ")
 
     if [[ $add_thumbnail =~ ^[Yy]$ ]]; then
-        echo "Enter path to thumbnail image:"
-        read thumb_path
+        thumb_path=$(read_with_backspace "Enter path to thumbnail image: ")
         if [[ -f "$thumb_path" ]]; then
             mv "$thumb_path" "$folder_path/thumbnail.png"
         else
