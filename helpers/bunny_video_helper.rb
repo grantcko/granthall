@@ -19,6 +19,8 @@ module BunnyVideoHelper
       if response.success?
         videos = response.parsed_response['items'].map do |video|
           puts "Processing video: #{video['title']} (ID: #{video['guid']})"
+          created_date = video['metaTags']&.find { |tag| tag['property'] == 'created_date' }&.dig('value')
+          created_at = created_date ? Time.parse(created_date) : Time.parse(video['dateUploaded'])
           {
             id: video['guid'],
             name: video['title'],
@@ -26,7 +28,7 @@ module BunnyVideoHelper
             thumbnail_url: video['thumbnailFileName'] ? "https://#{ENV['BUNNY_PULL_ZONE_ID']}.b-cdn.net/#{video['guid']}/#{video['thumbnailFileName']}" : 'images/reel_placeholder.png',
             url: "https://iframe.mediadelivery.net/embed/#{ENV['BUNNY_LIBRARY_ID']}/#{video['guid']}",
             type: 'mp4',
-            created_at: Time.parse(video['dateUploaded']),
+            created_at: created_at,
             views: video['views'],
             length: video['length'],
             status: video['status']
