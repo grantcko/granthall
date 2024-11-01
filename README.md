@@ -21,6 +21,32 @@
 ### Overview
 Bunny.net is used for video hosting, metadata management, and thumbnail handling. It provides a robust platform for serving video content efficiently.
 
+### Video Structure
+Videos in Bunny.net are organized using metadata tags for efficient categorization and retrieval:
+
+#### Metadata Tags
+Each video has two types of metadata tags:
+1. **Created Date**
+   ```json
+   { "property": "created_at", "value": "YYYY-MM-DDT00:00:00Z" }
+   ```
+2. **Category Tags**
+   ```json
+   { "property": "tags", "value": "tag1,tag2,tag3" }
+   ```
+
+2. **Description**
+   ```json
+   { "property": "description", "value": "description of the video" }
+   ```
+
+#### Available Categories
+- `featured`: Highlighted/best work
+- `corporate`: Corporate/commercial projects
+- `documentary`: Documentary-style videos
+- `narrative`: Narrative/story-driven content
+- `music-video`: Music video projects
+
 ### Features
 - **Video Upload**: Videos are uploaded to Bunny.net using a Ruby script that automates the process.
 - **Metadata Management**: Each video can have associated metadata, including title, description, tags, and upload date.
