@@ -22,11 +22,11 @@
   }
 }
 
-.video-grid {
+.video-item {
   display: none;
 }
 
-.video-grid.active {
+.video-item.active {
   display: block;
 }
 
@@ -65,18 +65,4 @@
     margin: 0 0.1rem;
   }
 
-}
-
-.thumbnail-wrapper {
-  position: relative;
-  padding-top: 56.25%;
-}
-
-.thumbnail-wrapper img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }

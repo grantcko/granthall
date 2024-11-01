@@ -20,6 +20,7 @@ module BunnyVideoHelper
         videos = response.parsed_response['items'].map do |video|
           puts "Processing video: #{video['title']} (ID: #{video['guid']})"
           created_date = video['metaTags']&.find { |tag| tag['property'] == 'created_date' }&.dig('value')
+          tags = video['metaTags']&.find { |tag| tag['property'] == 'tags' }&.dig('value')
           created_at = created_date ? Time.parse(created_date) : Time.parse(video['dateUploaded'])
           {
             id: video['guid'],
@@ -31,7 +32,8 @@ module BunnyVideoHelper
             created_at: created_at,
             views: video['views'],
             length: video['length'],
-            status: video['status']
+            status: video['status'],
+            tags: tags
           }
         end
 
