@@ -158,3 +158,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Your existing gallery code...
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Existing code...
+
+  // Handle video stop on modal close
+  const videoModals = document.querySelectorAll('.modal');
+  videoModals.forEach(modal => {
+    modal.addEventListener('hidden.bs.modal', function () {
+      const iframe = this.querySelector('iframe');
+      if (iframe) {
+        // Completely replace the iframe to force a reset
+        const newIframe = iframe.cloneNode(true);
+        iframe.parentNode.replaceChild(newIframe, iframe);
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('main-video');
+  if (video) {
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        debug: true
+      });
+      hls.loadSource(video.querySelector('source').src);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.ERROR, function(event, data) {
+        console.log('HLS error:', data);
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = video.querySelector('source').src;
+    }
+  }
+});
