@@ -118,6 +118,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!item.classList.contains(albumId)) {
           item.classList.remove('active');
         }
+        if (item.classList.contains(albumId)) {
+          item.classList.add('active');
+        }
+
       });
     });
   });
