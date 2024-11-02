@@ -30,31 +30,42 @@
   display: block;
 }
 
-.album-buttons {
+.album-buttons-container {
+  width: 100%;
+  padding: 1rem 0;
   display: flex;
   justify-content: center;
 }
 
+.album-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  max-width: 100%;
+  padding: 0 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
 .album-button {
-  // TODO: Add styles for album buttons
-  // small, no padding, no border
   border-radius: 0;
   padding: 0.25rem .8rem;
-  margin: 0 0.4rem;
   font-size: 0.8rem;
-  // black border
   border: 1px solid white;
   color: white;
-  padding: 10px auto;
-  // black background
   background-color: black;
-  // on hover, white background
+  white-space: nowrap;
+
   &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
   }
-  // when clicked, white background
+
   &.active {
     background-color: white;
     color: black;
@@ -62,7 +73,7 @@
   }
 
   @media (max-width: 768px) {
-    margin: 0 0.1rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
   }
-
 }
