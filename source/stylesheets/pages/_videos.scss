@@ -33,6 +33,7 @@
 .album-buttons {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap; // Allow buttons to wrap on smaller screens
 }
 
 .album-button {
@@ -40,7 +41,7 @@
   // small, no padding, no border
   border-radius: 0;
   padding: 0.25rem .8rem;
-  margin: 0 0.4rem;
+  margin: 0.2rem; // Adjust margin for better spacing on smaller screens
   font-size: 0.8rem;
   // black border
   border: 1px solid white;
@@ -62,7 +63,8 @@
   }
 
   @media (max-width: 768px) {
-    margin: 0 0.1rem;
+    margin: 0.1rem; // Further adjust margin for smaller screens
+    font-size: 0.7rem; // Reduce font size for smaller screens
+    padding: 0.2rem 0.6rem; // Adjust padding for smaller screens
   }
-
 }
