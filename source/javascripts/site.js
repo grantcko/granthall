@@ -56,10 +56,6 @@ function updateModalContent(modal, videoId, videoTitle) {
   modal.querySelector('iframe').src = getVimeoEmbedUrl(videoId);
 }
 
-function getVimeoEmbedUrl(videoId) {
-  return `https://player.vimeo.com/video/${videoId}?autoplay=1&title=1&byline=0&portrait=0&controls=1&share=1&pip=0&speed=0&quality=0&collections=0&info=0`;
-}
-
 function openVideoModal(videoId) {
   const button = document.querySelector(`[data-video-id="${videoId}"]`);
   if (!button) return;
@@ -98,23 +94,114 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.album-button');
+  const videoItems = document.querySelectorAll('.video-item');
 
-  // Show first grid and activate first button by default
-  document.querySelector('.video-grid').classList.add('active');
-  document.querySelector('.album-button').classList.add('active');
+  // Set initial state - only show featured videos
+  videoItems.forEach(item => {
+    if (!item.classList.contains('featured')) {
+      item.classList.remove('active');
+    }
+  });
 
+  // Rest of the button click handling remains the same
   buttons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all buttons
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      // Add active class to clicked button
-      this.classList.add('active');
-
-      const albumId = this.dataset.albumId;
-      document.querySelectorAll('.video-grid').forEach(grid => {
-        grid.classList.toggle('active', grid.dataset.albumId === albumId);
+    button.addEventListener('click', () => {
+      if (button.classList.contains('active')) {
+        console.log('removing active');
+        button.classList.remove('active');
+        videoItems.forEach(item => {
+          item.classList.add('active');
+        });
+        return;
+      }
+      const albumId = button.dataset.albumId;
+      console.log(albumId);
+      buttons.forEach(button => {
+        button.classList.remove('active');
+      });
+      button.classList.add('active');
+      videoItems.forEach(item => {
+        if (!item.classList.contains(albumId)) {
+          item.classList.remove('active');
+        }
+        if (item.classList.contains(albumId)) {
+          item.classList.add('active');
+        }
       });
     });
   });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize video players in modals
+  document.querySelectorAll('.modal').forEach(modal => {
+    const videoElement = modal.querySelector('video');
+    if (!videoElement) return;
+
+    let player = null;
+
+    modal.addEventListener('show.bs.modal', function() {
+      if (!player) {
+        player = videojs(videoElement, {
+          fluid: true,
+          controls: true,
+          autoplay: false,
+          preload: 'auto',
+          playbackRates: [0.5, 1, 1.5, 2],
+          html5: {
+            hls: {
+              enableLowInitialPlaylist: true,
+              smoothQualityChange: true,
+              overrideNative: true
+            },
+            nativeVideoTracks: false,
+            nativeAudioTracks: false,
+            nativeTextTracks: false
+          }
+        });
+      }
+    });
+
+    modal.addEventListener('hidden.bs.modal', function() {
+      if (player) {
+        player.pause();
+      }
+    });
+  });
+
+  // Your existing gallery code...
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle video stop on modal close
+  const videoModals = document.querySelectorAll('.modal');
+  videoModals.forEach(modal => {
+    modal.addEventListener('hidden.bs.modal', function () {
+      const iframe = this.querySelector('iframe');
+      if (iframe) {
+        // Completely replace the iframe to force a reset
+        const newIframe = iframe.cloneNode(true);
+        iframe.parentNode.replaceChild(newIframe, iframe);
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('main-video');
+  if (video) {
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        debug: true
+      });
+      hls.loadSource(video.querySelector('source').src);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.ERROR, function(event, data) {
+        console.log('HLS error:', data);
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = video.querySelector('source').src;
+    }
+  }
 });

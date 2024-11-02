@@ -46,10 +46,18 @@
     <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.3.8/dist/umd/photoswipe.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.3.8/dist/umd/photoswipe-lightbox.umd.min.js"></script>
 
+    <!-- Add this in the head section -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <!-- In the head section, after your other CSS -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet" />
+
   </head>
   <body>
     <%= partial 'partials/navbar' %>
     <%= yield %>
     <script src="javascripts/site.js" defer></script>
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
   </body>
 </html>
