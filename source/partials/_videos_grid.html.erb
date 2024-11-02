@@ -1,0 +1,61 @@
+<div class="container video-grid">
+  <% videos = fetch_bunny_videos %>
+  <% if videos['data'].any? %>
+    <div class="row g-4">
+      <div class="album-buttons">
+        <button class="album-button active" data-album-id="featured">FEATURED</button>
+        <button class="album-button" data-album-id="corporate">CORPORATE</button>
+        <button class="album-button" data-album-id="documentary">DOCUMENTARY</button>
+        <button class="album-button" data-album-id="narrative">NARRATIVE</button>
+        <button class="album-button" data-album-id="music-video">MUSIC VIDEOS</button>
+      </div>
+      <% videos['data'].each do |video| %>
+        <div class="col-lg-4 col-md-6 video-item <%= video[:tags]&.include?('featured') ? 'active' : '' %> <%= video[:tags]&.split(',')&.join(' ') if video[:tags] %>">
+          <div class="video-card" data-bs-toggle="modal" data-bs-target="#modal-<%= video[:id] %>">
+            <div class="thumbnail-wrapper" style="position: relative; padding-top: 56.25%;">
+              <img
+                src="<%= video[:thumbnail_url].presence || 'images/reel_placeholder.png' %>"
+                alt="<%= video[:name] %>"
+                class="img-fluid"
+                loading="lazy"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+              >
+            </div>
+            <div class="video-info">
+              <div class="d-flex justify-content-between align-items-center">
+                <h3><%= video[:name] %></h3>
+                <span><%= video[:views] %> views</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for each video -->
+        <div class="modal fade" id="modal-<%= video[:id] %>" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title"><%= video[:name] %></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body p-0">
+                <div style="position: relative; padding-top: 56.25%;">
+                  <iframe
+                    src="https://iframe.mediadelivery.net/embed/<%= video[:videoLibraryId] %>/<%= video[:id] %>?autoplay=true&customCSS=true"
+                    loading="lazy"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowfullscreen="true"
+                    class="bunny-video-player"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center">No videos found</p>
+  <% end %>
+</div>

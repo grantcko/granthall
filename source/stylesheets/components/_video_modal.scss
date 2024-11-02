@@ -24,9 +24,10 @@
 }
 
 .modal-dialog {
-  max-width: 1600px;
-  width: 80%;
-  margin: 1.75rem auto;
+  max-width: 1200px;
+  width: 90%;
+  margin: 1rem auto;
+  z-index: 1600 !important;
 }
 
 .video-container {
@@ -40,15 +41,14 @@
   line-height: 1.5;
 }
 
-// Make sure modal appears above other content
+// Make sure modal appears above backdrop
 .modal {
-  z-index: 9999 !important;
+  z-index: 1500 !important;
 }
 
 .modal-backdrop {
-  z-index: 9998 !important;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.5);
+  z-index: 1400 !important;
+  background: rgba(0, 0, 0, 0.75);
   transition: all 0.3s ease-out;
   backdrop-filter: blur(0px);
 }
@@ -60,8 +60,8 @@
 
 // Fade animation
 .modal.fade .modal-dialog {
-  transition: transform .3s ease-out;
-  transform: translate(0, -50px);
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -25px);
 }
 
 .modal.show .modal-dialog {
@@ -72,24 +72,36 @@
 .modal-content {
   background-color: #000;
   color: #fff;
+  border: 1px solid #333;
+  position: relative;
+  z-index: 1600 !important;
 }
 
 .modal-header {
   border-bottom: 1px solid #333;
+  padding: 0.1rem .2rem;
+  position: relative;
+  z-index: 1600 !important;
+  height: 30px;
+
+  .modal-title {
+    font-size: .9rem;
+    margin: 0;
+  }
 
   .btn-close {
-    color: #fff;
+    padding: 0.5rem;
+    margin: -0.25rem -0.25rem -0.25rem auto;
     filter: invert(1) grayscale(100%) brightness(200%);
   }
 }
 
 .video-wrapper {
   position: relative;
-  z-index: 1; // Ensure videos stay clickable
 }
 
 iframe {
-  z-index: 1; // Ensure iframes stay clickable
+  position: relative;
 }
 
 // Make showcases clickable through modal backdrop
@@ -101,4 +113,22 @@ iframe {
 .video-card-button {
   position: relative;
   z-index: 1;
+}
+
+// Video.js player controls customization
+.video-js {
+  .vjs-control-bar {
+    height: 30px;
+    background-color: #000;
+    filter: grayscale(100%);
+  }
+
+  .vjs-progress-control {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .vjs-progress-holder {
+    height: 30px;
+  }
 }
