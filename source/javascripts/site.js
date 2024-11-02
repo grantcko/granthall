@@ -95,7 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.album-button');
   const videoItems = document.querySelectorAll('.video-item');
-  // when a button is clicked, get ref to that button's data-album-id
+
+  // Set initial state - only show featured videos
+  videoItems.forEach(item => {
+    if (!item.classList.contains('featured')) {
+      item.classList.remove('active');
+    }
+  });
+
+  // Rest of the button click handling remains the same
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       if (button.classList.contains('active')) {
@@ -108,12 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       const albumId = button.dataset.albumId;
       console.log(albumId);
-      // and add active to that button, remove active from all other buttons
       buttons.forEach(button => {
         button.classList.remove('active');
       });
       button.classList.add('active');
-      // remove active from any video item without a class that matches the data-album-id
       videoItems.forEach(item => {
         if (!item.classList.contains(albumId)) {
           item.classList.remove('active');
@@ -121,13 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (item.classList.contains(albumId)) {
           item.classList.add('active');
         }
-
       });
     });
   });
-
-
-
 });
 
 document.addEventListener('DOMContentLoaded', function() {
