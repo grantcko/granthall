@@ -3,14 +3,14 @@
   <% if videos['data'].any? %>
     <div class="row g-4">
       <div class="album-buttons">
-        <button class="album-button active" data-album-id="best">BEST</button>
+        <button class="album-button active" data-album-id="featured">FEATURED</button>
         <button class="album-button" data-album-id="corporate">CORPORATE</button>
         <button class="album-button" data-album-id="documentary">DOCUMENTARY</button>
         <button class="album-button" data-album-id="narrative">NARRATIVE</button>
         <button class="album-button" data-album-id="music-video">MUSIC VIDEOS</button>
       </div>
       <% videos['data'].each do |video| %>
-        <div class="col-lg-4 col-md-6 video-item active <%= video[:tags]&.split(',')&.join(' ') if video[:tags] %>">
+        <div class="col-lg-4 col-md-6 video-item <%= video[:tags]&.include?('featured') ? 'active' : '' %> <%= video[:tags]&.split(',')&.join(' ') if video[:tags] %>">
           <div class="video-card" data-bs-toggle="modal" data-bs-target="#modal-<%= video[:id] %>">
             <div class="thumbnail-wrapper" style="position: relative; padding-top: 56.25%;">
               <img
