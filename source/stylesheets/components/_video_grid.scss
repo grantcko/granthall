@@ -1,12 +1,12 @@
 .video-grid {
   display: grid;
-  // grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  padding: 0 0 16px 0;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 16px 0 16px 0;
   position: relative;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .video-card {
