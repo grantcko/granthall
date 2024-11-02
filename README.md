@@ -53,6 +53,7 @@ Each video has two types of metadata tags:
 - **Thumbnail Support**: Thumbnails can be uploaded alongside videos to provide a visual preview.
 - **Tagging System**: Videos can be tagged with predefined categories to facilitate organization and retrieval.
 - **Video Playback**: Integrated with Video.js for seamless video playback on the website.
+- **Premium Encoding**: [coming soon](https://docs.bunny.net/docs/premium-encoding)
 
 ### Scripts
 - **`upload_video_to_bunny.rb`**: A script to upload videos to Bunny.net. It prompts for video file path, thumbnail, and metadata, then uploads the content.
