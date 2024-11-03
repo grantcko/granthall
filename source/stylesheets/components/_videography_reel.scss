@@ -19,6 +19,22 @@
   width: 100%;
   height: 100%;
   opacity: 1;
+  position: relative;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.bunny-video-player {
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes spin {

@@ -190,6 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const video = document.getElementById('main-video');
   if (video) {
+    // Function to handle video errors
+    const handleVideoError = () => {
+      console.log('Video playback failed, falling back to poster image');
+      video.controls = false; // Hide controls when showing poster
+      video.style.objectFit = 'cover'; // Ensure poster covers the area
+    };
+
     if (Hls.isSupported()) {
       const hls = new Hls({
         debug: true
@@ -199,9 +206,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
       hls.on(Hls.Events.ERROR, function(event, data) {
         console.log('HLS error:', data);
+        if (data.fatal) {
+          handleVideoError();
+        }
       });
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = video.querySelector('source').src;
+      video.addEventListener('error', handleVideoError);
     }
+
+    // Add general error handler
+    video.addEventListener('error', handleVideoError);
   }
 });
