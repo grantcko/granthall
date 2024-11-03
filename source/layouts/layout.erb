@@ -48,7 +48,9 @@
   </head>
   <body>
     <%= partial 'partials/navbar' %>
-    <%= yield %>
+    <main class="page-wrapper">
+      <%= yield %>
+    </main>
     <script src="javascripts/site.js" defer></script>
   </body>
 </html>

@@ -303,3 +303,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const videoModals = document.querySelectorAll('.modal');
+
+  videoModals.forEach(modal => {
+    // Handle modal closing
+    modal.addEventListener('hidden.bs.modal', function() {
+      // Find all video elements in this modal
+      const videos = modal.querySelectorAll('video, iframe');
+
+      videos.forEach(video => {
+        if (video.tagName === 'VIDEO') {
+          // Handle native video elements
+          video.pause();
+          video.currentTime = 0;
+        } else if (video.tagName === 'IFRAME') {
+          // Handle iframe videos (Bunny.net, Vimeo, etc.)
+          const currentSrc = video.src;
+          video.src = ''; // Remove source temporarily
+          setTimeout(() => {
+            video.src = currentSrc; // Restore source
+          }, 100);
+        }
+      });
+
+      // If using VideoJS, handle those players
+      const vjsPlayers = modal.querySelectorAll('.video-js');
+      vjsPlayers.forEach(player => {
+        if (videojs.getPlayer(player)) {
+          videojs.getPlayer(player).pause();
+        }
+      });
+    });
+  });
+});

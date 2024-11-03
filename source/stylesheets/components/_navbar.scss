@@ -1,9 +1,6 @@
 #main-menu {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 50px;
-  padding: 10px 25px;
+  background: black;
+  padding: 4px 8px;
   position: fixed;
   top: 36px;
   left: 50%;
@@ -11,7 +8,7 @@
   z-index: 1000;
 
   @media (max-width: 768px) {
-    top: 8px;
+    top: 24px;
   }
 }
 
