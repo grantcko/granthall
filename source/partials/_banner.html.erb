@@ -1,22 +1,29 @@
 <div class="row justify-content-center banner">
-  <div class="col-12 d-flex flex-column justify-content-center align-items-center">
-    <!-- Profile Image -->
-    <div class="d-flex">
-      <%= image_tag 'greyshirt.jpg', alt: "white smiling man with short hair and a grey shirt", class: 'avatar' %>
+  <div class="col-12 d-flex justify-content-center align-items-center">
+    <!-- Reorganized content with flexbox -->
+    <div class="d-flex align-items-center">
+      <!-- Profile Image -->
+      <div>
+        <%= image_tag 'greyshirt_cut.png', alt: "white smiling man with short hair and a grey shirt", class: 'avatar' %>
+      </div>
+
+      <!-- Right side content -->
+      <div class="d-flex flex-column align-items-center">
+        <%= image_tag 'granthall-written.png', alt: "profile photo", class: 'written-shaped' %>
+
+        <!-- Social Media Links -->
+        <div class="social-links">
+          <h3><a href="https://www.youtube.com/@mediatemedia" class="text-light"><i class="fa-brands fa-youtube icon-medium"></i></a></h3>
+          <h3><a href="https://www.instagram.com/_granthall_/" class="text-light"><i class="fa-brands fa-square-instagram icon-medium"></i></a></h3>
+          <h3><a href="https://github.com/grantcko" class="text-light"><i class="fa-brands fa-github icon-medium"></i></a></h3>
+          <h3><a href="https://www.linkedin.com/in/grant-hall-/" class="text-light"><i class="fa-brands fa-linkedin icon-medium"></i></a></h3>
+        </div>
+
+        <!-- Description -->
+        <div class="typed-container">
+          <p class="scroll-reveal">I make videos and write code</p>
+        </div>
+      </div>
     </div>
-    <%= image_tag 'granthall-written.png', alt: "profile photo", class: 'written-shaped' %>
-    <!-- Social Media Links -->
-    <div class="d-flex">
-      <h3><a href="https://www.youtube.com/@mediatemedia" class="text-light"><i class="fa-brands fa-youtube icon-medium"></i></a></h3>
-      <h3><a href="https://www.instagram.com/_granthall_/" class="text-light"><i class="fa-brands fa-square-instagram icon-medium"></i></a></h3>
-      <h3><a href="https://github.com/grantcko" class="text-light"><i class="fa-brands fa-github icon-medium"></i></a></h3>
-      <h3><a href="https://www.linkedin.com/in/grant-hall-/" class="text-light"><i class="fa-brands fa-linkedin icon-medium"></i></a></h3>
-    </div>
-    <!-- Description -->
-    <div class="typed-container">
-      <p class="scroll-reveal">I make videos and write code</p>
-    </div>
-    <!-- Scroll Down Button -->
-    <i type="button" onClick="document.getElementById('middle').scrollIntoView();" class="text-light fa-solid fa-caret-down down-btn"></i>
   </div>
 </div>
