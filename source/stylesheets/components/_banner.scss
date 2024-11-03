@@ -1,12 +1,53 @@
 .banner {
   margin-top: 160px;
   margin-bottom: 80px;
+
+  .d-flex {
+    gap: 0; // Reduced gap between avatar and content
+  }
+
+  // Social links specific styling
+  .social-links {
+    display: flex;
+    gap: 0; // Space between social icons
+    margin: 0.5rem 0; // Reduced vertical spacing around social links
+  }
+
+  // Tighten up vertical spacing in the right column
+  .d-flex .flex-column {
+    gap: 0; // Reduced gap between vertical elements
+  }
+
   @media (max-width: 768px) {
     margin-top: 80px;
     margin-bottom: 40px;
+
+    // Stack vertically on mobile
+    .d-flex {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    // Center the avatar
+    .avatar {
+      margin-bottom: 1rem;
+    }
   }
 }
 
 .typed-container {
   width: 375px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+// Keep avatar on left for larger screens
+@media (min-width: 769px) {
+  .banner .d-flex {
+    flex-direction: row;
+    align-items: center;
+    gap: 0; // Reduced gap here too
+  }
 }
