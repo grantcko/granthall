@@ -2,16 +2,7 @@
 [THIS](https://granthall.me/) is my personal profile/portfolio website.
 
 ## TODO:
-- ☑ Upload videos to Vimeo
-- ☑ make thumbnails for top videos on vimeo
-- ☑ implement AWS video and image hosting like [this](https://www.youtube.com/watch?v=JbVyTrfqshU
-- setup tagging
-- setup thumbnails
-- ☑ upload videos, upload thumbnails, write metadata
-- ☑ Implement video modal system:
-- ☐ optimize videos
 - ☐ add individual video links
-- ☐ Add video category tags
 - ☐ Add a contact form
 - ☐ Redirect thegranthall.com to granthall.me
 - ☐ Increase security
