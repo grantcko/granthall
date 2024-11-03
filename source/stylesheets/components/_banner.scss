@@ -1,7 +1,4 @@
 .banner {
-  margin-top: 160px;
-  margin-bottom: 80px;
-
   .d-flex {
     gap: 0; // Reduced gap between avatar and content
   }
@@ -19,8 +16,6 @@
   }
 
   @media (max-width: 768px) {
-    margin-top: 80px;
-    margin-bottom: 40px;
 
     // Stack vertically on mobile
     .d-flex {
