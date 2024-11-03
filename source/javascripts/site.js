@@ -172,20 +172,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // Your existing gallery code...
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Handle video stop on modal close
-  const videoModals = document.querySelectorAll('.modal');
-  videoModals.forEach(modal => {
-    modal.addEventListener('hidden.bs.modal', function () {
-      const iframe = this.querySelector('iframe');
-      if (iframe) {
-        // Completely replace the iframe to force a reset
-        const newIframe = iframe.cloneNode(true);
-        iframe.parentNode.replaceChild(newIframe, iframe);
-      }
-    });
-  });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   // Handle video stop on modal close
+//   const videoModals = document.querySelectorAll('.modal');
+//   videoModals.forEach(modal => {
+//     modal.addEventListener('hidden.bs.modal', function () {
+//       const iframe = this.querySelector('iframe');
+//       if (iframe) {
+//         // Completely replace the iframe to force a reset
+//         const newIframe = iframe.cloneNode(true);
+//         iframe.parentNode.replaceChild(newIframe, iframe);
+//       }
+//     });
+//   });
+// });
 
 document.addEventListener('DOMContentLoaded', function() {
   const video = document.getElementById('main-video');
@@ -218,4 +218,51 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add general error handler
     video.addEventListener('error', handleVideoError);
   }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM Content Loaded - Initializing video modals');
+
+  // Handle video modals
+  const videoModals = document.querySelectorAll('.modal');
+  console.log(`Found ${videoModals.length} video modals`);
+
+  videoModals.forEach(modal => {
+    const iframe = modal.querySelector('iframe.bunny-video-player');
+    let player = null;
+
+    // fullscreen on "f" key
+    modal.addEventListener('keydown', function(event) {
+      if (event.key.toLowerCase() === 'f' && !event.ctrlKey && !event.altKey && !event.metaKey) {
+        console.log('Fullscreen requested');
+        const iframe = modal.querySelector('iframe.bunny-video-player');
+        if (!iframe) {
+          console.log('No iframe found');
+          return;
+        }
+
+        // Try to access iframe content
+        try {
+          const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+          const fullscreenButton = iframeDocument.querySelector('button[data-plyr="fullscreen"]');
+          console.log('Fullscreen button:', fullscreenButton);
+          if (fullscreenButton) {
+            fullscreenButton.click();
+          }
+        } catch (error) {
+          console.error('Cannot access iframe content:', error);
+        }
+      }
+    });
+
+    // Handle video stop on modal close
+    modal.addEventListener('hidden.bs.modal', function () {
+      const modalIframe = this.querySelector('iframe');
+      if (modalIframe) {
+        // Completely replace the iframe to force a reset
+        const newIframe = modalIframe.cloneNode(true);
+        modalIframe.parentNode.replaceChild(newIframe, modalIframe);
+      }
+    });
+  });
 });
