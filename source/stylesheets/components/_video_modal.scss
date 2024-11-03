@@ -44,6 +44,8 @@
 // Make sure modal appears above backdrop
 .modal {
   z-index: 1500 !important;
+  height: 100%;
+  overflow: hidden;
 }
 
 .modal-backdrop {
@@ -75,6 +77,10 @@
   border: 1px solid #333;
   position: relative;
   z-index: 1600 !important;
+  @media (max-width: 768px) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .modal-header {
@@ -130,5 +136,11 @@ iframe {
 
   .vjs-progress-holder {
     height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    width: 98%;
   }
 }
