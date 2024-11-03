@@ -172,21 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Your existing gallery code...
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   // Handle video stop on modal close
-//   const videoModals = document.querySelectorAll('.modal');
-//   videoModals.forEach(modal => {
-//     modal.addEventListener('hidden.bs.modal', function () {
-//       const iframe = this.querySelector('iframe');
-//       if (iframe) {
-//         // Completely replace the iframe to force a reset
-//         const newIframe = iframe.cloneNode(true);
-//         iframe.parentNode.replaceChild(newIframe, iframe);
-//       }
-//     });
-//   });
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
   const video = document.getElementById('main-video');
   if (video) {
@@ -221,48 +206,100 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM Content Loaded - Initializing video modals');
-
-  // Handle video modals
   const videoModals = document.querySelectorAll('.modal');
-  console.log(`Found ${videoModals.length} video modals`);
 
   videoModals.forEach(modal => {
-    const iframe = modal.querySelector('iframe.bunny-video-player');
-    let player = null;
-
-    // fullscreen on "f" key
-    modal.addEventListener('keydown', function(event) {
-      if (event.key.toLowerCase() === 'f' && !event.ctrlKey && !event.altKey && !event.metaKey) {
-        console.log('Fullscreen requested');
-        const iframe = modal.querySelector('iframe.bunny-video-player');
-        if (!iframe) {
-          console.log('No iframe found');
-          return;
-        }
-
-        // Try to access iframe content
-        try {
-          const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-          const fullscreenButton = iframeDocument.querySelector('button[data-plyr="fullscreen"]');
-          console.log('Fullscreen button:', fullscreenButton);
-          if (fullscreenButton) {
-            fullscreenButton.click();
+    // Create a MutationObserver to watch for style changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'style' && modal.style.display === 'none') {
+          const iframe = modal.querySelector('iframe.bunny-video-player');
+          if (iframe) {
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => {
+              iframe.src = currentSrc;
+            }, 100);
           }
-        } catch (error) {
-          console.error('Cannot access iframe content:', error);
         }
-      }
+      });
     });
 
-    // Handle video stop on modal close
-    modal.addEventListener('hidden.bs.modal', function () {
-      const modalIframe = this.querySelector('iframe');
-      if (modalIframe) {
-        // Completely replace the iframe to force a reset
-        const newIframe = modalIframe.cloneNode(true);
-        modalIframe.parentNode.replaceChild(newIframe, modalIframe);
+    // Start observing the modal for style changes
+    observer.observe(modal, {
+      attributes: true,
+      attributeFilter: ['style']
+    });
+
+    // Also keep the hidden.bs.modal event listener as a backup
+    modal.addEventListener('hidden.bs.modal', function() {
+      const iframe = this.querySelector('iframe.bunny-video-player');
+      if (iframe) {
+        const currentSrc = iframe.src;
+        iframe.src = '';
+        setTimeout(() => {
+          iframe.src = currentSrc;
+        }, 100);
       }
     });
   });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, setting up video controls');
+  let currentPlayer = null;
+
+  // First verify Player.js is loaded
+  if (typeof playerjs === 'undefined') {
+    console.error('Player.js library not loaded! Please check script inclusion');
+    return;
+  }
+
+  // Initialize player when modal opens
+  const videoModals = document.querySelectorAll('.modal');
+  console.log('Found video modals:', videoModals.length);
+
+  videoModals.forEach(modal => {
+    modal.addEventListener('shown.bs.modal', function() {
+      console.log('Modal shown');
+      const iframe = this.querySelector('iframe.bunny-video-player');
+      console.log('Found iframe:', iframe);
+
+      if (iframe) {
+        console.log('Initializing Player.js');
+        currentPlayer = new playerjs.Player(iframe);
+
+        currentPlayer.on('ready', () => {
+          console.log('Player ready event fired');
+          setupSpacebarControl();
+        });
+      }
+    });
+
+    modal.addEventListener('hidden.bs.modal', function() {
+      console.log('Modal hidden, clearing player reference');
+      currentPlayer = null;
+    });
+  });
+
+  function setupSpacebarControl() {
+    console.log('Setting up spacebar control');
+    document.addEventListener('keydown', function(e) {
+      // Only handle spacebar if we have an active player and not in an input field
+      if (e.code === 'Space' && currentPlayer && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        console.log('Spacebar pressed, toggling play state');
+        currentPlayer.getPaused(function(isPaused) {
+          console.log('Current player state - isPaused:', isPaused);
+          if (isPaused) {
+            console.log('Playing video');
+            currentPlayer.play();
+          } else {
+            console.log('Pausing video');
+            currentPlayer.pause();
+          }
+        });
+      }
+    });
+  }
 });
