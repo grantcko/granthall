@@ -1,5 +1,5 @@
 # personal-profile
-[THIS](https://granthall.me/) is my personal profile/portfolio website.
+[This is my personal website.](https://granthall.me/) It includes my videos, photos, repos, and thoughts.
 
 ## TODO:
 - ☐ add individual video links
@@ -10,7 +10,7 @@
 ## Bunny.net Integration
 
 ### Overview
-Bunny.net is used for video hosting, metadata management, and thumbnail handling. It provides a robust platform for serving video content efficiently.
+Bunny.net is used for video hosting, metadata management, and thumbnail handling. It providgstes a robust platform for serving video content efficiently.
 
 ### Video Structure
 Videos in Bunny.net are organized using metadata tags for efficient categorization and retrieval:
