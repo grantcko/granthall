@@ -6,6 +6,7 @@
 - ☐ Add a contact form
 - ☐ Redirect thegranthall.com to granthall.me
 - ☐ Increase security
+- ☐ Increase lighthouse score
 
 ## Bunny.net Integration
 
