@@ -1,11 +1,12 @@
 # personal-profile
-[THIS](https://granthall.me/) is my personal profile/portfolio website.
+[THIS](https://granthall.me/) is Grant Hall's personal website. It features his videos, photos, repos, and blog posts.
 
 ## TODO:
 - ☐ add individual video links
 - ☐ Add a contact form
 - ☐ Redirect thegranthall.com to granthall.me
 - ☐ Increase security
+- ☐ Increase lighthouse score
 
 ## Bunny.net Integration
 
