@@ -318,13 +318,15 @@ document.addEventListener('DOMContentLoaded', function() {
           // Handle native video elements
           video.pause();
           video.currentTime = 0;
-        } else if (video.tagName === 'IFRAME') {
-          // Handle iframe videos (Bunny.net, Vimeo, etc.)
+        } else if (video.tagName === 'IFRAME' && video.classList.contains('bunny-video-player')) {
+          // Only handle Bunny.net video iframes
           const currentSrc = video.src;
-          video.src = ''; // Remove source temporarily
-          setTimeout(() => {
-            video.src = currentSrc; // Restore source
-          }, 100);
+          if (currentSrc.includes('mediadelivery.net')) { // Additional check
+            video.src = ''; // Remove source temporarily
+            setTimeout(() => {
+              video.src = currentSrc; // Restore source
+            }, 100);
+          }
         }
       });
 
