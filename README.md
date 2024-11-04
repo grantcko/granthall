@@ -4,10 +4,10 @@
 ## TODO:
 - ☐ add individual video links
 - ☐ Add a contact form
+- ☐ Refactor
 - ☐ Redirect thegranthall.com to granthall.me
 - ☐ Increase security
 - ☐ Increase lighthouse score
-- ☐ Refactor
 
 ## Bunny.net Integration
 
