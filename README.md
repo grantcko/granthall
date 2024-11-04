@@ -44,7 +44,7 @@ Each video has two types of metadata tags:
 - **Metadata Management**: Each video can have associated metadata, including title, description, tags, and upload date.
 - **Thumbnail Support**: Thumbnails can be uploaded alongside videos to provide a visual preview.
 - **Tagging System**: Videos can be tagged with predefined categories to facilitate organization and retrieval.
-- **Video Playback**: Integrated with Video.js for seamless video playback on the website.
+- **Video Playback**: Integrated with bunny.net player.
 - **Premium Encoding**: [coming soon](https://docs.bunny.net/docs/premium-encoding)
 
 ### Scripts
@@ -74,7 +74,6 @@ To set up environment variables in Netlify:
 ## Tools
 - **Bunny.net**: Video and photo hosting, optimization, metadata, and thumbnails
 - **Spaceship**: Domain name service
-- **Video.js**: Video playback
 - **GitHub API**: Project integration
 - **Cloudinary**: Image hosting and optimization
 - **Bootstrap**: Responsive design
