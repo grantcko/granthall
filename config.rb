@@ -229,3 +229,4 @@ end
 
 # Redirect configuration
 redirect "reel/index.html", to: "/videos#cef04918-811d-4661-b218-373064b1dd9b"
+redirect "treehouse/index.html", to: "/videos#c2fd0b3a-2d9b-4ce7-8e55-099c6bf5f30d"
