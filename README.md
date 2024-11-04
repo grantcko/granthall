@@ -1,4 +1,4 @@
-# personal-profile
+# granthall.me
 [This is my personal website.](https://granthall.me/) It includes my videos, photos, repos, and thoughts.
 
 ## TODO:
