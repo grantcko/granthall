@@ -226,3 +226,6 @@ end
 # Configure URLs to include or exclude .html extension
 # Option 1: Remove .html from URLs (recommended for cleaner URLs)
 # activate :directory_indexes
+
+# Redirect configuration
+redirect "reel/index.html", to: "/videos#cef04918-811d-4661-b218-373064b1dd9b"
