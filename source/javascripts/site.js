@@ -338,3 +338,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Check for video ID in URL hash on page load
+  const videoId = window.location.hash.slice(1);
+  if (videoId) {
+    const targetModal = document.getElementById(`modal-${videoId}`);
+    if (targetModal) {
+      const modal = new bootstrap.Modal(targetModal);
+      modal.show();
+    }
+  }
+
+  // Handle modal opening
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('show.bs.modal', event => {
+      const videoId = modal.id.replace('modal-', '');
+      window.history.pushState({}, '', `#${videoId}`);
+    });
+
+    // Handle modal closing
+    modal.addEventListener('hidden.bs.modal', () => {
+      window.history.pushState({}, '', window.location.pathname);
+    });
+  });
+});

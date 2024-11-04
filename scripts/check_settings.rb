@@ -29,12 +29,14 @@ begin
   # Check collection settings
   make_request("/settings", "Collection Settings")
 
-  # Check a specific video's encoding info (using the first video we find)
-  videos_response = HTTParty.get("#{BUNNY_API}/videos", headers: HEADERS)
-  if videos_response.success? && videos_response['items']&.first
-    video_id = videos_response['items'].first['guid']
-    make_request("/videos/#{video_id}", "Sample Video Settings")
+  # Check a specific video's encoding info using the provided video ID
+  if ARGV.empty?
+    puts "❌ Please provide a video ID as an argument."
+    exit 1
   end
+
+  video_id = ARGV[0]
+  make_request("/videos/#{video_id}", "Video Settings for ID: #{video_id}")
 
 rescue StandardError => e
   puts "\n❌ Error: #{e.message}"
