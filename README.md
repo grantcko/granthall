@@ -7,6 +7,7 @@
 - ☐ Redirect thegranthall.com to granthall.me
 - ☐ Increase security
 - ☐ Increase lighthouse score
+- ☐ Refactor
 
 ## Bunny.net Integration
 
