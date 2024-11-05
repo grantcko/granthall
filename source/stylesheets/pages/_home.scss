@@ -1,4 +1,5 @@
 .github-projects {
+  max-width: 100vw;
   .card {
     background-color: rgb(30, 30, 30);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -20,4 +21,17 @@
   .badge {
     font-size: 0.8rem;
   }
+}
+
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#code-title {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #b1b1b18f;
+  padding: 0;
+  margin: 16px 0;
 }

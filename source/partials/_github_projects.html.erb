@@ -1,22 +1,18 @@
-<section class="github-projects my-5">
+<section class="github-projects">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-
-      <div class="row g-3">
-        <% fetch_github_pinned_repos.each do |project| %>
-          <div class="col-md-6">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h5 class="card-title mb-0"><%= project[:name] %></h5>
-                </div>
-                <p class="card-text small"><%= project[:description] %></p>
-                <a href="<%= project[:url] %>" class="stretched-link" target="_blank"></a>
-              </div>
+    <div class="row g-3">
+      <p class="text-center" id="code-title">REPOS</p>
+      <% fetch_github_pinned_repos.each do |project| %>
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <p class="card-title mb-0"><%= project[:name] %></p>
             </div>
+            <p class="card-text small"><%= project[:description] %></p>
+            <a href="<%= project[:url] %>" class="stretched-link" target="_blank"></a>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </section>
