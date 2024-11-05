@@ -148,190 +148,21 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Video.js Player Initialization
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize video players in modals
-  document.querySelectorAll('.modal').forEach(modal => {
-    const videoElement = modal.querySelector('video');
-    if (!videoElement) return;
-
-    let player = null;
-
-    // Initialize player when modal opens
-    modal.addEventListener('show.bs.modal', function() {
-      if (!player) {
-        player = videojs(videoElement, {
-          // Video.js configuration options
-          fluid: true,
-          controls: true,
-          autoplay: false,
-          preload: 'auto',
-          playbackRates: [0.5, 1, 1.5, 2],
-          html5: {
-            hls: {
-              enableLowInitialPlaylist: true,
-              smoothQualityChange: true,
-              overrideNative: true
-            },
-            nativeVideoTracks: false,
-            nativeAudioTracks: false,
-            nativeTextTracks: false
-          }
-        });
-      }
-    });
-
-    // Pause video when modal closes
-    modal.addEventListener('hidden.bs.modal', function() {
-      if (player) {
-        player.pause();
-      }
-    });
-  });
-});
-
-// HLS (HTTP Live Streaming) Video Handler
-document.addEventListener('DOMContentLoaded', function() {
-  const video = document.getElementById('main-video');
-  if (video) {
-    // Error handling function
-    const handleVideoError = () => {
-      console.log('Video playback failed, falling back to poster image');
-      video.controls = false;
-      video.style.objectFit = 'cover';
-    };
-
-    // Initialize HLS if supported
-    if (Hls.isSupported()) {
-      const hls = new Hls({ debug: true });
-      hls.loadSource(video.querySelector('source').src);
-      hls.attachMedia(video);
-
-      // Handle HLS errors
-      hls.on(Hls.Events.ERROR, function(event, data) {
-        console.log('HLS error:', data);
-        if (data.fatal) {
-          handleVideoError();
-        }
-      });
-    }
-    // Fallback for Safari which has native HLS support
-    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = video.querySelector('source').src;
-      video.addEventListener('error', handleVideoError);
-    }
-
-    video.addEventListener('error', handleVideoError);
-  }
-});
-
-// Bunny.net Video Player Reset Handler
+// Bunny.net Video Player Reset on modal close Handler
 document.addEventListener('DOMContentLoaded', function() {
   const videoModals = document.querySelectorAll('.modal');
 
   videoModals.forEach(modal => {
     modal.addEventListener('hidden.bs.modal', function() {
       const iframe = modal.querySelector('iframe.bunny-video-player');
-      if (iframe && iframe.src) {
-        iframe.src = iframe.src.replace('autoplay=true', 'autoplay=false');
-      }
-    });
-
-    modal.addEventListener('show.bs.modal', function() {
-      const iframe = modal.querySelector('iframe.bunny-video-player');
-      if (iframe && iframe.src) {
-        iframe.src = iframe.src.replace('autoplay=false', 'autoplay=true');
-      }
-    });
-  });
-});
-
-// Spacebar Video Control Setup
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM loaded, setting up video controls');
-  let currentPlayer = null;
-
-  // Verify Player.js is available
-  if (typeof playerjs === 'undefined') {
-    console.error('Player.js library not loaded!');
-    return;
-  }
-
-  // Initialize player controls for each modal
-  const videoModals = document.querySelectorAll('.modal');
-
-  videoModals.forEach(modal => {
-    // Setup player when modal opens
-    modal.addEventListener('shown.bs.modal', function() {
-      const iframe = this.querySelector('iframe.bunny-video-player');
-
       if (iframe) {
-        currentPlayer = new playerjs.Player(iframe);
-        currentPlayer.on('ready', () => {
-          setupSpacebarControl();
-        });
+        const currentSrc = iframe.src;
+        iframe.src = ''; // Remove source to force video stop
+        // Restore src with autoplay set to false
+        setTimeout(() => {
+          iframe.src = currentSrc.replace('autoplay=true', 'autoplay=false');
+        }, 100);
       }
-    });
-
-    // Clear player reference when modal closes
-    modal.addEventListener('hidden.bs.modal', function() {
-      currentPlayer = null;
-    });
-  });
-
-  // Setup spacebar control for play/pause
-  function setupSpacebarControl() {
-    document.addEventListener('keydown', function(e) {
-      if (e.code === 'Space' && currentPlayer && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
-        e.preventDefault();
-        currentPlayer.getPaused(function(isPaused) {
-          console.log('Current player state - isPaused:', isPaused);
-          if (isPaused) {
-            console.log('Playing video');
-            currentPlayer.play();
-          } else {
-            console.log('Pausing video');
-            currentPlayer.pause();
-          }
-        });
-      }
-    });
-  }
-});
-
-// Video Cleanup on Modal Close
-document.addEventListener('DOMContentLoaded', function() {
-  const videoModals = document.querySelectorAll('.modal');
-
-  videoModals.forEach(modal => {
-    modal.addEventListener('hidden.bs.modal', function() {
-      // Reset all video elements in modal
-      const videos = modal.querySelectorAll('video, iframe');
-
-      videos.forEach(video => {
-        if (video.tagName === 'VIDEO') {
-          // Reset native video elements
-          video.pause();
-          video.currentTime = 0;
-        } else if (video.tagName === 'IFRAME' && video.classList.contains('bunny-video-player')) {
-          // Only handle Bunny.net video iframes
-          const currentSrc = video.src;
-          if (currentSrc.includes('mediadelivery.net')) { // Additional check
-            video.src = ''; // Remove source temporarily
-            setTimeout(() => {
-              video.src = currentSrc; // Restore source
-            }, 100);
-          }
-        }
-      });
-
-      // Reset Video.js players
-      const vjsPlayers = modal.querySelectorAll('.video-js');
-      vjsPlayers.forEach(player => {
-        if (videojs.getPlayer(player)) {
-          videojs.getPlayer(player).pause();
-        }
-      });
     });
   });
 });
@@ -357,6 +188,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     modal.addEventListener('hidden.bs.modal', () => {
       window.history.pushState({}, '', window.location.pathname);
+    });
+  });
+});
+
+// Video Modal and Focus Handler
+document.addEventListener('DOMContentLoaded', function() {
+  const videoModals = document.querySelectorAll('.modal');
+
+  videoModals.forEach(modal => {
+    const iframe = modal.querySelector('iframe.bunny-video-player');
+
+    modal.addEventListener('hidden.bs.modal', function() {
+      if (iframe) {
+        iframe.src = ''; // Stop video
+        iframe.setAttribute('tabindex', '-1'); // Make non-focusable
+      }
+    });
+
+    modal.addEventListener('show.bs.modal', function() {
+      if (iframe && !iframe.src) {
+        iframe.src = `https://iframe.mediadelivery.net/embed/${modal.id.replace('modal-', '')}?autoplay=true&customCSS=true`;
+        iframe.setAttribute('tabindex', '0'); // Make focusable
+      }
     });
   });
 });
