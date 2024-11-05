@@ -191,26 +191,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-
-// Video Modal and Focus Handler
-document.addEventListener('DOMContentLoaded', function() {
-  const videoModals = document.querySelectorAll('.modal');
-
-  videoModals.forEach(modal => {
-    const iframe = modal.querySelector('iframe.bunny-video-player');
-
-    modal.addEventListener('hidden.bs.modal', function() {
-      if (iframe) {
-        iframe.src = ''; // Stop video
-        iframe.setAttribute('tabindex', '-1'); // Make non-focusable
-      }
-    });
-
-    modal.addEventListener('show.bs.modal', function() {
-      if (iframe && !iframe.src) {
-        iframe.src = `https://iframe.mediadelivery.net/embed/${modal.id.replace('modal-', '')}?autoplay=true&customCSS=true`;
-        iframe.setAttribute('tabindex', '0'); // Make focusable
-      }
-    });
-  });
-});
