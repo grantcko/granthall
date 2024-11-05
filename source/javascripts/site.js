@@ -1,61 +1,70 @@
+// Scroll animation function that reveals elements as they come into view
 function scrollTrigger(selector) {
+  // Get all elements matching the selector and convert to array
   let els = document.querySelectorAll(selector);
   els = Array.from(els);
 
+  // Create an Intersection Observer to watch when elements become visible
   let observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
+      // When element becomes visible
       if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
+        entry.target.classList.add('active'); // Add 'active' class
+        observer.unobserve(entry.target);     // Stop watching this element
       }
     });
   }, {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+    root: null,           // Use viewport as root
+    rootMargin: '0px',    // No margin
+    threshold: 0.1        // Trigger when 10% of element is visible
   });
 
+  // Start observing each element
   els.forEach(el => {
     observer.observe(el);
   });
 }
 
-// Example usage
+// Initialize scroll animations when page loads
 document.addEventListener('DOMContentLoaded', function() {
   scrollTrigger('.scroll-reveal');
 });
 
-// Video Modal Handler
+// Video Modal Handler - Manages video popups
 document.addEventListener('DOMContentLoaded', function() {
   const videoModal = document.getElementById('videoModal');
   if (!videoModal) return;
 
-  // Check for video ID in URL hash on page load
+  // Check URL for video ID on page load (for direct links to videos)
   const videoId = window.location.hash.slice(1);
   if (videoId) openVideoModal(videoId);
 
-  // Handle modal opening
+  // When modal opens
   videoModal.addEventListener('show.bs.modal', event => {
     const button = event.relatedTarget;
     const videoId = button.dataset.videoId;
     const videoTitle = button.dataset.videoTitle;
 
+    // Update modal content and URL
     updateModalContent(videoModal, videoId, videoTitle);
     window.history.pushState({}, '', `#${videoId}`);
   });
 
-  // Handle modal closing
+  // When modal closes
   videoModal.addEventListener('hidden.bs.modal', () => {
+    // Clear URL hash and video source
     window.history.pushState({}, '', window.location.pathname);
     videoModal.querySelector('iframe').src = '';
   });
 });
 
+// Helper function to update modal content
 function updateModalContent(modal, videoId, videoTitle) {
   modal.querySelector('.modal-title').textContent = videoTitle;
   modal.querySelector('iframe').src = getVimeoEmbedUrl(videoId);
 }
 
+// Helper function to open video modal programmatically
 function openVideoModal(videoId) {
   const button = document.querySelector(`[data-video-id="${videoId}"]`);
   if (!button) return;
@@ -65,8 +74,9 @@ function openVideoModal(videoId) {
   modal.show();
 }
 
+// Photo Gallery Initialization
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize Justified Gallery
+  // Initialize Justified Gallery plugin with configuration
   $("#gallery").justifiedGallery({
     rowHeight: 300,
     margins: 5,
@@ -75,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     captions: false,
     waitThumbnailsLoad: true
   }).on('jg.complete', function() {
+    // After gallery loads, initialize PhotoSwipe lightbox
     let lightbox = new PhotoSwipeLightbox({
       gallery: '#gallery',
       children: 'a',
@@ -92,20 +103,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Album Filter System
 document.addEventListener('DOMContentLoaded', function() {
   const buttons = document.querySelectorAll('.album-button');
   const videoItems = document.querySelectorAll('.video-item');
 
-  // Set initial state - only show featured videos
+  // Initially show only featured videos
   videoItems.forEach(item => {
     if (!item.classList.contains('featured')) {
       item.classList.remove('active');
     }
   });
 
-  // Rest of the button click handling remains the same
+  // Handle album filter button clicks
   buttons.forEach(button => {
     button.addEventListener('click', () => {
+      // If clicking active button, show all videos
       if (button.classList.contains('active')) {
         console.log('removing active');
         button.classList.remove('active');
@@ -114,12 +127,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return;
       }
+
+      // Otherwise, filter videos by album
       const albumId = button.dataset.albumId;
       console.log(albumId);
       buttons.forEach(button => {
         button.classList.remove('active');
       });
       button.classList.add('active');
+
       videoItems.forEach(item => {
         if (!item.classList.contains(albumId)) {
           item.classList.remove('active');
@@ -132,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Video.js Player Initialization
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize video players in modals
   document.querySelectorAll('.modal').forEach(modal => {
@@ -140,9 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let player = null;
 
+    // Initialize player when modal opens
     modal.addEventListener('show.bs.modal', function() {
       if (!player) {
         player = videojs(videoElement, {
+          // Video.js configuration options
           fluid: true,
           controls: true,
           autoplay: false,
@@ -162,133 +181,109 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+    // Pause video when modal closes
     modal.addEventListener('hidden.bs.modal', function() {
       if (player) {
         player.pause();
       }
     });
   });
-
-  // Your existing gallery code...
 });
 
+// HLS (HTTP Live Streaming) Video Handler
 document.addEventListener('DOMContentLoaded', function() {
   const video = document.getElementById('main-video');
   if (video) {
-    // Function to handle video errors
+    // Error handling function
     const handleVideoError = () => {
       console.log('Video playback failed, falling back to poster image');
-      video.controls = false; // Hide controls when showing poster
-      video.style.objectFit = 'cover'; // Ensure poster covers the area
+      video.controls = false;
+      video.style.objectFit = 'cover';
     };
 
+    // Initialize HLS if supported
     if (Hls.isSupported()) {
-      const hls = new Hls({
-        debug: true
-      });
+      const hls = new Hls({ debug: true });
       hls.loadSource(video.querySelector('source').src);
       hls.attachMedia(video);
 
+      // Handle HLS errors
       hls.on(Hls.Events.ERROR, function(event, data) {
         console.log('HLS error:', data);
         if (data.fatal) {
           handleVideoError();
         }
       });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    }
+    // Fallback for Safari which has native HLS support
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = video.querySelector('source').src;
       video.addEventListener('error', handleVideoError);
     }
 
-    // Add general error handler
     video.addEventListener('error', handleVideoError);
   }
 });
 
+// Bunny.net Video Player Reset Handler
 document.addEventListener('DOMContentLoaded', function() {
   const videoModals = document.querySelectorAll('.modal');
 
   videoModals.forEach(modal => {
-    // Create a MutationObserver to watch for style changes
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'style' && modal.style.display === 'none') {
-          const iframe = modal.querySelector('iframe.bunny-video-player');
-          if (iframe) {
-            const currentSrc = iframe.src;
-            iframe.src = '';
-            setTimeout(() => {
-              iframe.src = currentSrc;
-            }, 100);
-          }
-        }
-      });
-    });
-
-    // Start observing the modal for style changes
-    observer.observe(modal, {
-      attributes: true,
-      attributeFilter: ['style']
-    });
-
-    // Also keep the hidden.bs.modal event listener as a backup
     modal.addEventListener('hidden.bs.modal', function() {
-      const iframe = this.querySelector('iframe.bunny-video-player');
-      if (iframe) {
-        const currentSrc = iframe.src;
-        iframe.src = '';
-        setTimeout(() => {
-          iframe.src = currentSrc;
-        }, 100);
+      const iframe = modal.querySelector('iframe.bunny-video-player');
+      if (iframe && iframe.src) {
+        iframe.src = iframe.src.replace('autoplay=true', 'autoplay=false');
+      }
+    });
+
+    modal.addEventListener('show.bs.modal', function() {
+      const iframe = modal.querySelector('iframe.bunny-video-player');
+      if (iframe && iframe.src) {
+        iframe.src = iframe.src.replace('autoplay=false', 'autoplay=true');
       }
     });
   });
 });
 
+// Spacebar Video Control Setup
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, setting up video controls');
   let currentPlayer = null;
 
-  // First verify Player.js is loaded
+  // Verify Player.js is available
   if (typeof playerjs === 'undefined') {
-    console.error('Player.js library not loaded! Please check script inclusion');
+    console.error('Player.js library not loaded!');
     return;
   }
 
-  // Initialize player when modal opens
+  // Initialize player controls for each modal
   const videoModals = document.querySelectorAll('.modal');
-  console.log('Found video modals:', videoModals.length);
 
   videoModals.forEach(modal => {
+    // Setup player when modal opens
     modal.addEventListener('shown.bs.modal', function() {
-      console.log('Modal shown');
       const iframe = this.querySelector('iframe.bunny-video-player');
-      console.log('Found iframe:', iframe);
 
       if (iframe) {
-        console.log('Initializing Player.js');
         currentPlayer = new playerjs.Player(iframe);
-
         currentPlayer.on('ready', () => {
-          console.log('Player ready event fired');
           setupSpacebarControl();
         });
       }
     });
 
+    // Clear player reference when modal closes
     modal.addEventListener('hidden.bs.modal', function() {
-      console.log('Modal hidden, clearing player reference');
       currentPlayer = null;
     });
   });
 
+  // Setup spacebar control for play/pause
   function setupSpacebarControl() {
-    console.log('Setting up spacebar control');
     document.addEventListener('keydown', function(e) {
-      // Only handle spacebar if we have an active player and not in an input field
       if (e.code === 'Space' && currentPlayer && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
         e.preventDefault();
-        console.log('Spacebar pressed, toggling play state');
         currentPlayer.getPaused(function(isPaused) {
           console.log('Current player state - isPaused:', isPaused);
           if (isPaused) {
@@ -304,18 +299,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+// Video Cleanup on Modal Close
 document.addEventListener('DOMContentLoaded', function() {
   const videoModals = document.querySelectorAll('.modal');
 
   videoModals.forEach(modal => {
-    // Handle modal closing
     modal.addEventListener('hidden.bs.modal', function() {
-      // Find all video elements in this modal
+      // Reset all video elements in modal
       const videos = modal.querySelectorAll('video, iframe');
 
       videos.forEach(video => {
         if (video.tagName === 'VIDEO') {
-          // Handle native video elements
+          // Reset native video elements
           video.pause();
           video.currentTime = 0;
         } else if (video.tagName === 'IFRAME' && video.classList.contains('bunny-video-player')) {
@@ -330,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
 
-      // If using VideoJS, handle those players
+      // Reset Video.js players
       const vjsPlayers = modal.querySelectorAll('.video-js');
       vjsPlayers.forEach(player => {
         if (videojs.getPlayer(player)) {
@@ -341,8 +336,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// URL Hash Management for Videos
 document.addEventListener('DOMContentLoaded', function() {
-  // Check for video ID in URL hash on page load
+  // Open video modal if ID is in URL
   const videoId = window.location.hash.slice(1);
   if (videoId) {
     const targetModal = document.getElementById(`modal-${videoId}`);
@@ -350,26 +346,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const modal = new bootstrap.Modal(targetModal);
       modal.show();
     }
-  } else {
-    // Pause all videos when there's no ID in URL
-    document.querySelectorAll('.modal iframe.bunny-video-player').forEach(video => {
-      if (video.src.includes('mediadelivery.net')) {
-        const player = new playerjs.Player(video);
-        player.on('ready', () => {
-          player.pause();
-        });
-      }
-    });
   }
 
-  // Handle modal opening
+  // Update URL when modals open/close
   document.querySelectorAll('.modal').forEach(modal => {
     modal.addEventListener('show.bs.modal', event => {
       const videoId = modal.id.replace('modal-', '');
       window.history.pushState({}, '', `#${videoId}`);
     });
 
-    // Handle modal closing
     modal.addEventListener('hidden.bs.modal', () => {
       window.history.pushState({}, '', window.location.pathname);
     });
