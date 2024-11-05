@@ -46,6 +46,10 @@
   z-index: 1500 !important;
   height: 100%;
   overflow: hidden;
+  display: none !important;
+  &.show {
+    display: block !important;
+  }
 }
 
 .modal-backdrop {
