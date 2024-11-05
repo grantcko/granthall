@@ -350,6 +350,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const modal = new bootstrap.Modal(targetModal);
       modal.show();
     }
+  } else {
+    // Pause all videos when there's no ID in URL
+    document.querySelectorAll('.modal iframe.bunny-video-player').forEach(video => {
+      if (video.src.includes('mediadelivery.net')) {
+        const player = new playerjs.Player(video);
+        player.on('ready', () => {
+          player.pause();
+        });
+      }
+    });
   }
 
   // Handle modal opening
