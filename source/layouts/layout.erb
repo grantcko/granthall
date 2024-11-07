@@ -51,7 +51,27 @@
     <main class="page-wrapper">
       <%= yield %>
     </main>
-    <p class="text-center">hello@granthall.me</p>
+    <br>
+    <div class="contact-container">
+      <div class="contact-section">
+        <h3 class="text-center">EMAIL</h3>
+        <form name="email" netlify>
+          <div class="mb-3">
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Name">
+          </div>
+          <div class="mb-3">
+            <input type="email" class="form-control" id="email" name="email" required placeholder="Email">
+          </div>
+          <div class="mb-3">
+            <textarea class="form-control" id="message" name="message" rows="3" required placeholder="Message"></textarea>
+          </div>
+          <input type="hidden" name="form-name" value="contact">
+          <div class="d-grid mt-1">
+            <button type="submit" class="btn btn-outline-light">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script src="javascripts/site.js" defer></script>
   </body>
 </html>
