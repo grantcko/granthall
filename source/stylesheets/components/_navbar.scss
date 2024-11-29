@@ -1,15 +1,12 @@
 #main-menu {
-  background: black;
-  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  padding: 24px 0;
   position: fixed;
-  top: 36px;
+  width: 100%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-
-  @media (max-width: 768px) {
-    top: 24px;
-  }
 }
 
 .nav-bar {
