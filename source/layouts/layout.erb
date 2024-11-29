@@ -2,32 +2,25 @@
 <html>
   <head>
     <title>Grant Hall</title>
-
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- SEO Meta Tags -->
     <meta name="robots" content="index, follow">
     <meta name="description" content="Grant Hall's website, including videos, code projects, and more">
     <meta name="author" content="Grant Hall">
     <meta name="keywords" content="Grant Hall, portfolio, projects, code, videos, web development, programming, creative works">
-
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Grant Hall - Portfolio">
     <meta property="og:description" content="Explore the portfolio of Grant Hall, featuring code projects and videos showcasing creativity and technical skills.">
-    <meta property="og:image" content="https://yourwebsite.com/images/og-image.jpg">
-    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:url" content="https://granthall.me">
     <meta property="og:type" content="website">
-
-    <title><%= current_page.data.title || "Portfolio" %></title>
-
+    <title><%= current_page.data.title || "Grant Hall" %></title>
     <!-- Core Styles and Scripts -->
     <%= stylesheet_link_tag "site" %>
     <link rel="icon" href="../images/favicon.ico">
     <script src="https://kit.fontawesome.com/25f48368ad.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Conditional Loading based on current page -->
     <% if current_page.url.include?('photos') %>
       <!-- PhotoSwipe Dependencies -->
@@ -37,13 +30,6 @@
       <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.3.8/dist/umd/photoswipe.umd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/photoswipe@5.3.8/dist/umd/photoswipe-lightbox.umd.min.js"></script>
-    <% end %>
-
-    <% if current_page.url.include?('videos') || current_page.url == '/' %>
-      <!-- Video Player Dependencies -->
-      <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-      <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
-      <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
     <% end %>
   </head>
   <body>
@@ -58,7 +44,6 @@
       <input type="email" name="email" />
       <textarea name="message"></textarea>
     </form>
-
     <div class="contact-container">
       <div class="contact-section">
         <h3 class="text-center">EMAIL</h3>
