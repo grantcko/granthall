@@ -8,14 +8,12 @@
     <!-- SEO Meta Tags -->
     <meta name="robots" content="index, follow">
     <meta name="description" content="Grant Hall's website, including videos, code projects, and more">
-    <meta name="author" content="Grant Hall">
     <meta name="keywords" content="Grant Hall, portfolio, projects, code, videos, web development, programming, creative works">
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Grant Hall - Portfolio">
     <meta property="og:description" content="Explore the portfolio of Grant Hall, featuring code projects and videos showcasing creativity and technical skills.">
     <meta property="og:url" content="https://granthall.me">
     <meta property="og:type" content="website">
-    <title><%= current_page.data.title || "Grant Hall" %></title>
     <!-- Core Styles and Scripts -->
     <%= stylesheet_link_tag "site" %>
     <link rel="icon" href="../images/favicon.ico">
@@ -38,32 +36,7 @@
       <%= yield %>
     </main>
     <br>
-    <!-- Hidden form for Netlify form detection -->
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <textarea name="message"></textarea>
-    </form>
-    <div class="contact-container">
-      <div class="contact-section">
-        <h3 class="text-center">EMAIL</h3>
-        <form name="contact" method="POST" netlify>
-          <input type="hidden" name="form-name" value="contact">
-          <div class="mb-3">
-            <input type="text" class="form-control" id="name" name="name" required placeholder="Name">
-          </div>
-          <div class="mb-3">
-            <input type="email" class="form-control" id="email" name="email" required placeholder="Email">
-          </div>
-          <div class="mb-3">
-            <textarea class="form-control" id="message" name="message" rows="3" required placeholder="Message"></textarea>
-          </div>
-          <div class="d-grid mt-1">
-            <button type="submit" class="btn btn-outline-light">Send</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <script src="javascripts/site.js" defer></script>
+    <%= partial 'partials/email_form' %>
+    <script type="module" src="javascripts/site.js" defer></script>
   </body>
 </html>
