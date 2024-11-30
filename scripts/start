@@ -2,5 +2,6 @@
 
 system("open -a 'Brave Browser' 'https://www.github.com/grantcko/granthall'")
 system("open -a 'Brave Browser' 'http://localhost:4567/'")
+system("open -a 'Brave Browser' 'https://granthall.me'")
 system("cursor .")
 system("middleman server")
