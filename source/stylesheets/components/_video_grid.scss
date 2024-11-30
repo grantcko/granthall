@@ -68,3 +68,35 @@
 // .g-4, .gy-4 {
 //   --bs-gutter-y: .4rem;
 // }
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.vidgrid-padding {
+  padding-top: 120px;
+
+  @media (max-width: 768px) {
+    padding-top: 60px;
+  }
+}
+
+.video-item {
+  display: none;
+}
+
+.video-item.active {
+  display: block;
+}

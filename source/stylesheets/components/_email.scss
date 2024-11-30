@@ -1,0 +1,15 @@
+.contact-container {
+  margin: 8px;
+}
+
+.contact-section {
+  max-width: 600px;
+  margin: 0 auto;
+  // border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  & p {
+    padding: 0;
+    margin: 0;
+  }
+}

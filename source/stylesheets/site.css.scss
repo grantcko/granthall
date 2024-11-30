@@ -10,3 +10,43 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+// sitewide styles
+
+body {
+  background-color: #000;
+  font-family: monospace;
+  overflow-x: hidden;
+}
+
+p {
+  color: rgb(255, 255, 255)
+}
+
+h1 {
+  color: white;
+  font-family: monospace;
+}
+
+h2 {
+  color: rgb(255, 255, 255);
+  font-family: monospace;
+}
+
+h3 {
+  color: white;
+  font-family: monospace;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+}
+
+.page-content {
+  padding-top: 120px;
+  padding-bottom: 20px;
+
+  @media (max-width: 768px) {
+    padding-top: 80px;
+  }
+}
