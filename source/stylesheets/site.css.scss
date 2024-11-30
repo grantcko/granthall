@@ -12,6 +12,9 @@
 @import "pages/index";
 
 // sitewide styles
+gh-container {
+  max-width: 800px;
+}
 
 body {
   background-color: #000;
@@ -49,4 +52,9 @@ h3 {
   @media (max-width: 768px) {
     padding-top: 80px;
   }
+}
+
+.gh-container {
+  max-width: 800px;
+  margin: 0 auto
 }
