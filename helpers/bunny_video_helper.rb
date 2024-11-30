@@ -51,4 +51,50 @@ module BunnyVideoHelper
       { 'data' => [] }
     end
   end
+
+  def fetch_reel
+    reel_id = "cef04918-811d-4661-b218-373064b1dd9b"
+    begin
+      puts "Fetching video with ID: #{reel_id} from Bunny CDN..."
+      response = HTTParty.get(
+        "https://video.bunnycdn.com/library/#{ENV['BUNNY_LIBRARY_ID']}/videos/#{reel_id}",
+        headers: {
+          "AccessKey" => ENV['BUNNY_API_KEY'],
+          "accept" => "application/json"
+        }
+      )
+
+      puts "Response code: #{response.code}"
+      puts "Response body: #{response.body[0..500]}"
+
+      if response.success?
+        video = response.parsed_response
+        created_date = video['metaTags']&.find { |tag| tag['property'] == 'created_date' }&.dig('value')
+        tags = video['metaTags']&.find { |tag| tag['property'] == 'tags' }&.dig('value')
+        created_at = created_date ? Time.parse(created_date) : Time.parse(video['dateUploaded'])
+        video_details = {
+          id: video['guid'],
+          name: video['title'],
+          videoLibraryId: video['videoLibraryId'],
+          thumbnail_url: video['thumbnailFileName'] ? "https://#{ENV['BUNNY_PULL_ZONE_ID']}.b-cdn.net/#{video['guid']}/#{video['thumbnailFileName']}" : 'images/reel_placeholder.png',
+          url: "https://iframe.mediadelivery.net/embed/#{ENV['BUNNY_LIBRARY_ID']}/#{video['guid']}",
+          type: 'mp4',
+          created_at: created_at,
+          views: video['views'],
+          length: video['length'],
+          status: video['status'],
+          tags: tags
+        }
+
+        puts "Successfully processed video: #{video_details[:name]}"
+        { 'data' => video_details }
+      else
+        puts "Error fetching video: #{response.code} - #{response.body}"
+        { 'data' => nil }
+      end
+    rescue => e
+      puts "Error in fetch_bunny_video: #{e.message}"
+      { 'data' => nil }
+    end
+  end
 end
