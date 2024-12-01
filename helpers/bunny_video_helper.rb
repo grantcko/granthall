@@ -53,7 +53,7 @@ module BunnyVideoHelper
   end
 
   def fetch_reel
-    reel_id = "cef04918-811d-4661-b218-373064b1dd9b"
+    reel_id = data.main.reel_id
     begin
       puts "Fetching video with ID: #{reel_id} from Bunny CDN..."
       response = HTTParty.get(

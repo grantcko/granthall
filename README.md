@@ -2,12 +2,12 @@
 [This is my personal website.](https://granthall.me/) It includes my videos, photos, repos, and thoughts.
 
 ## TODO:
-- ☐ add individual video links
-- ☐ Add a contact form
-- ☐ Refactor
-- ☐ Redirect thegranthall.com to granthall.me
-- ☐ Increase security
-- ☐ Increase lighthouse score
+- x add individual video links
+- x Add a contact form
+- x Refactor
+- o Redirect thegranthall.com to granthall.me
+- o Increase security
+- o Increase lighthouse score
 
 ## Bunny.net Integration
 
