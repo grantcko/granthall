@@ -49,8 +49,7 @@ Each video has two types of metadata tags:
 - **Premium Encoding**: [coming soon](https://docs.bunny.net/docs/premium-encoding)
 
 ### Scripts
-- **`upload_video_to_bunny.rb`**: A script to upload videos to Bunny.net. It prompts for video file path, thumbnail, and metadata, then uploads the content.
-- **`update_bunny_tags.rb`**: Allows updating of video tags using a user-friendly interface with `tty-prompt`.
+- several scripts available for development and dealing with videos on bunny.net
 
 ### Usage
 1. **Upload Videos**: Run the `upload_video_to_bunny.rb` script to upload videos and their metadata.
