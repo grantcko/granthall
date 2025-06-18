@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6aef332a-b034-45c9-b503-55a8b2310cbf/deploy-status)](https://app.netlify.com/projects/hummusxpress/deploys)
 # granthall.me
 [This is my personal website.](https://granthall.me/) It includes my videos, photos, repos, and thoughts.
 
@@ -9,7 +10,7 @@
 - o Increase security
 - o Increase lighthouse score
 
-## Bunny.net Integration
+## Bunny.net Integration 
 
 ### Overview
 Bunny.net is used for video hosting, metadata management, and thumbnail handling. It provides a robust platform for serving video content efficiently.
