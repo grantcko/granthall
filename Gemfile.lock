@@ -51,15 +51,15 @@ GEM
     fast_blank (1.0.1)
     fastimage (2.3.1)
     ffi (1.17.0)
-    ffi (1.17.0-aarch64-linux-gnu)
+    ffi (1.17.0-aarch64-linux)
     ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
+    ffi (1.17.0-arm-linux)
     ffi (1.17.0-arm-linux-musl)
     ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
+    ffi (1.17.0-x86-linux)
     ffi (1.17.0-x86-linux-musl)
     ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux)
     ffi (1.17.0-x86_64-linux-musl)
     haml (6.3.0)
       temple (>= 0.8.2)
@@ -204,16 +204,16 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
-  aarch64-linux-gnu
+  aarch64-linux
   aarch64-linux-musl
-  arm-linux-gnu
+  arm-linux
   arm-linux-musl
   arm64-darwin
   ruby
-  x86-linux-gnu
+  x86-linux
   x86-linux-musl
   x86_64-darwin
-  x86_64-linux-gnu
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES
