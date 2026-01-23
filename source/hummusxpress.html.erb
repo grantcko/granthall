@@ -15,18 +15,32 @@
         min-height: 100vh;
     }
     
-    @media (max-width: 768px) {
-        .hummusxpress-container {
-            padding-top: 80px;
-        }
-    }
-    
     .hummusxpress-container .container {
         max-width: 900px;
         margin: 0 auto;
         background: #111111;
         padding: 60px 50px;
         border: 1px solid #1a1a1a;
+    }
+    
+    @media (max-width: 768px) {
+        .hummusxpress-container {
+            padding-top: 80px;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        
+        .hummusxpress-container .container {
+            padding-top: 0;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        
+        .hummusxpress-container .video-embed {
+            margin-bottom: 4px;
+            margin-left: 0;
+            margin-right: 0;
+        }
     }
     
     .hummusxpress-container .header {
