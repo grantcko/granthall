@@ -227,6 +227,45 @@
         margin: 5px 0;
     }
     
+    .hummusxpress-container .video-embed {
+        margin-bottom: 60px;
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+        border: 1px solid #1a1a1a;
+    }
+    
+    .hummusxpress-container .video-embed iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .hummusxpress-container .site-preview-link {
+        display: block;
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 20px 40px;
+        background: #1a1a1a;
+        border: 1px solid #00ff88;
+        color: #00ff88;
+        text-decoration: none;
+        font-size: 1.2em;
+        font-weight: 400;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .hummusxpress-container .site-preview-link:hover {
+        background: #00ff88;
+        color: #000;
+        border-color: #00ff88;
+    }
+    
     @media print {
         .hummusxpress-container {
             background: white;
@@ -240,6 +279,12 @@
 
 <div class="hummusxpress-container">
     <div class="container">
+        <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/Yqt8iNRfLAo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <a href="https://seo--newhummusxpresstwo.netlify.app/" target="_blank" rel="noopener noreferrer" class="site-preview-link">Site Preview</a>
+        
         <div class="header">
             <h1>SEO Implementation Report</h1>
             <p class="subtitle">Hummus Xpress</p>
@@ -424,6 +469,11 @@
         <div class="note">
             <strong>Foundation</strong>
             <p>Your website already had excellent internal linking, no broken links, and safe external links. We've built on that strong foundation with all the requested SEO improvements.</p>
+        </div>
+
+        <div class="note">
+            <strong>Blog instructions</strong>
+            <p>To publish a new blog post, email me the full blog post (text) plus the photos you want included. I’ll format it and upload it to the website for free, up to once per month.</p>
         </div>
         
         <div class="footer-note">
