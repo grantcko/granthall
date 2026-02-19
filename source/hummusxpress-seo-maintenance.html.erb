@@ -1,0 +1,403 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .hummusxpress-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    background: #000;
+    padding: 40px 20px;
+    padding-top: 120px;
+    min-height: 100vh;
+  }
+
+  .hummusxpress-container .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #111111;
+    padding: 60px 50px;
+    border: 1px solid #1a1a1a;
+  }
+
+  .hummusxpress-container .header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .hummusxpress-container h1 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 2.2em;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+  }
+
+  .hummusxpress-container .subtitle {
+    color: #888888;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .hummusxpress-container .completion-badge {
+    display: inline-block;
+    color: #ffffff;
+    padding: 8px 0;
+    font-weight: 400;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hummusxpress-container .highlight-box {
+    border: 1px solid #1a1a1a;
+    padding: 40px;
+    margin: 50px 0;
+    text-align: center;
+  }
+
+  .hummusxpress-container .highlight-box h3 {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .hummusxpress-container .highlight-box p {
+    color: #888888;
+    font-size: 0.95em;
+    line-height: 1.7;
+  }
+
+  .hummusxpress-container .plans-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 50px 0;
+  }
+
+  .hummusxpress-container .plan-card {
+    border: 1px solid #1a1a1a;
+    padding: 32px 28px;
+  }
+
+  .hummusxpress-container .plan-card .plan-name {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888888;
+    margin-bottom: 12px;
+  }
+
+  .hummusxpress-container .plan-card .plan-price {
+    font-size: 2em;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .hummusxpress-container .plan-card .plan-price span {
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #666666;
+  }
+
+  .hummusxpress-container .plan-card .plan-features {
+    list-style: none;
+  }
+
+  .hummusxpress-container .plan-card .plan-features li {
+    padding: 10px 0;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 0.9em;
+    color: #e0e0e0;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hummusxpress-container .plan-card .plan-features li:last-child {
+    border-bottom: none;
+  }
+
+  .hummusxpress-container .plan-card .plan-features .bullet {
+    margin-right: 12px;
+    color: #ffffff;
+  }
+
+  .hummusxpress-container .plan-card .plan-price .yearly-badge {
+    font-size: 0.45em;
+    color: #888;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .hummusxpress-container .billing-toggle-wrap {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .hummusxpress-container .billing-toggle {
+    display: inline-flex;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 4px;
+    gap: 0;
+  }
+
+  .hummusxpress-container .billing-toggle button {
+    padding: 10px 24px;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #888888;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .hummusxpress-container .billing-toggle button:hover {
+    color: #e0e0e0;
+  }
+
+  .hummusxpress-container .billing-toggle button.active {
+    color: #ffffff;
+    background: #2a2a2a;
+  }
+
+  .hummusxpress-container h2 {
+    color: #ffffff;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .hummusxpress-container .completed-section {
+    margin: 40px 0;
+  }
+
+  .hummusxpress-container .completed-section h3 {
+    margin-bottom: 25px;
+    font-size: 0.9em;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #888888;
+  }
+
+  .hummusxpress-container .checklist {
+    list-style: none;
+  }
+
+  .hummusxpress-container .checklist li {
+    padding: 18px 0;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hummusxpress-container .checklist li:last-child {
+    border-bottom: none;
+  }
+
+  .hummusxpress-container .check-icon {
+    color: #ffffff;
+    margin-right: 20px;
+    font-size: 0.9em;
+    margin-top: 2px;
+  }
+
+  .hummusxpress-container .checklist li label {
+    flex: 1;
+    font-size: 0.95em;
+    color: #e0e0e0;
+    line-height: 1.6;
+  }
+
+  .hummusxpress-container .checklist li label strong {
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+
+  .hummusxpress-container .site-preview-link {
+    display: inline-block;
+    text-align: center;
+    margin-top: 8px;
+    padding: 16px 26px;
+    background: #1a1a1a;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .hummusxpress-container .site-preview-link:hover {
+    background: #ffffff;
+    color: #000;
+    border-color: #ffffff;
+  }
+
+  .hummusxpress-container .footer-note {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #1a1a1a;
+    color: #666666;
+    font-size: 0.85em;
+  }
+
+  .hummusxpress-container .footer-note p {
+    margin: 5px 0;
+  }
+
+  @media (max-width: 768px) {
+    .hummusxpress-container {
+      padding-top: 80px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    .hummusxpress-container .container {
+      padding-top: 28px;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .hummusxpress-container .plans-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="hummusxpress-container">
+  <div class="container">
+    <div class="header">
+      <h1>Monthly SEO Maintenance Plans</h1>
+      <p class="subtitle">Hummus Xpress</p>
+      <div class="completion-badge">SEO Upgrade Plans</div>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Overview</h3>
+      <p>
+        Keep your website SEO healthy month after month through ongoing keyword updates,
+        technical maintenance, and performance tracking. There are two plans to choose from.
+      </p>
+    </div>
+
+    <div class="billing-toggle-wrap">
+      <div class="billing-toggle" role="group" aria-label="Billing period">
+        <button type="button" class="active" data-period="monthly">Monthly</button>
+        <button type="button" data-period="yearly">Yearly <span style="color:#666;font-size:0.9em;">(50% off)</span></button>
+      </div>
+    </div>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">
+          <span class="price-monthly">$200</span><span class="price-yearly" hidden>$100</span>
+          <span class="price-suffix">per month</span>
+          <span class="yearly-badge" hidden>billed yearly · 50% off · $1,200/year</span>
+        </div>
+        <ul class="plan-features">
+          <li><span class="bullet">•</span> 1 SEO update per month</li>
+          <li><span class="bullet">•</span> Basic keyword tracking and reporting</li>
+          <li><span class="bullet">•</span> Meta tags review and updates</li>
+          <li><span class="bullet">•</span> Google Search Console check</li>
+          <li><span class="bullet">•</span> Monthly summary report</li>
+        </ul>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Advanced</div>
+        <div class="plan-price">
+          <span class="price-monthly">$400</span><span class="price-yearly" hidden>$200</span>
+          <span class="price-suffix">per month</span>
+          <span class="yearly-badge" hidden>billed yearly · 50% off · $2,400/year</span>
+        </div>
+        <ul class="plan-features">
+          <li><span class="bullet">•</span> Everything in the Basic plan</li>
+          <li><span class="bullet">•</span> Comprehensive weekly SEO updates and reporting</li>
+          <li><span class="bullet">•</span> Continuous keyword research and targeting</li>
+          <li><span class="bullet">•</span> Continuous technical SEO maintenance (error fixes, etc.)</li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+(function() {
+  var container = document.querySelector('.hummusxpress-container');
+  if (!container) return;
+  var toggle = container.querySelector('.billing-toggle');
+  var monthlyBtn = toggle.querySelector('[data-period="monthly"]');
+  var yearlyBtn = toggle.querySelector('[data-period="yearly"]');
+  function setPeriod(yearly) {
+    monthlyBtn.classList.toggle('active', !yearly);
+    yearlyBtn.classList.toggle('active', yearly);
+    container.querySelectorAll('.price-monthly').forEach(function(el) { el.hidden = yearly; });
+    container.querySelectorAll('.price-yearly').forEach(function(el) { el.hidden = !yearly; });
+    container.querySelectorAll('.price-suffix').forEach(function(el) { el.hidden = yearly; });
+    container.querySelectorAll('.yearly-badge').forEach(function(el) { el.hidden = !yearly; });
+  }
+  monthlyBtn.addEventListener('click', function() { setPeriod(false); });
+  yearlyBtn.addEventListener('click', function() { setPeriod(true); });
+})();
+    </script>
+
+    <h2>Expected Outcomes</h2>
+
+    <div class="completed-section">
+      <ul class="checklist">
+        <li>
+          <span class="check-icon">•</span>
+          <label>Increased traffic</label>
+        </li>
+        <li>
+          <span class="check-icon">•</span>
+          <label>Better keyword targeting and page relevance over time</label>
+        </li>
+        <li>
+          <span class="check-icon">•</span>
+          <label>Healthier indexing and crawl consistency</label>
+        </li>
+        <li>
+          <span class="check-icon">•</span>
+          <label>Ongoing improvements rather than one-time SEO changes</label>
+        </li>
+        <li>
+          <span class="check-icon">•</span>
+          <label>Clear visibility into what was done each month</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      <p>Prepared for client review: Hummus Xpress Monthly SEO maintenance proposal. February 2025.</p>
+    </div>
+  </div>
+</div>
