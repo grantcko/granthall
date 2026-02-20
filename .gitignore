@@ -119,3 +119,6 @@ coverage/
 credentials.json
 *.key
 *.pem
+
+# Local Netlify folder
+.netlify
