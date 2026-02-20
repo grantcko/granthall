@@ -16,10 +16,10 @@
   }
 
   .hx-report-container .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     background: #111111;
-    padding: 60px 50px;
+    padding: 60px 40px;
     border: 1px solid #1a1a1a;
   }
 
@@ -157,7 +157,7 @@
 
   .hx-report-container .stats-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     margin: 30px 0;
   }
@@ -219,6 +219,19 @@
     color: #888888;
   }
 
+  .hx-report-container .tables-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 60px 0 0;
+  }
+
+  .hx-report-container .changes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
   .hx-report-container .footer-note {
     text-align: center;
     margin-top: 60px;
@@ -246,7 +259,7 @@
     }
 
     .hx-report-container .stats-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .hx-report-container .ranking-table {
@@ -261,6 +274,14 @@
     .hx-report-container .keyword-list li {
       font-size: 0.78em;
       padding: 6px 12px;
+    }
+
+    .hx-report-container .tables-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hx-report-container .changes-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
@@ -317,149 +338,154 @@
       </div>
     </div>
 
-    <h2>Primary Changes</h2>
-
-    <div class="completed-section">
-      <ul class="checklist">
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Added schema markup to location pages, resulting in improved visibility in local packs</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Updated meta titles and descriptions on all service and menu pages, targeting new keyword clusters</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Launched a "Mediterranean Diet Benefits" cornerstone article, now ranking on page 2 for primary keywords</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Compressed and lazy-loaded all menu images, resulting in a 20% page speed improvement</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Introduced internal links between catering, takeout, and main menu pages for improved crawl efficiency</label>
-        </li>
-      </ul>
+    <div class="changes-grid">
+      <div>
+        <h2 style="margin-top: 0;">Primary Changes</h2>
+        <div class="completed-section">
+          <ul class="checklist">
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Added schema markup to location pages, resulting in improved visibility in local packs</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Updated meta titles and descriptions on all service and menu pages, targeting new keyword clusters</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Launched a "Mediterranean Diet Benefits" cornerstone article, now ranking on page 2 for primary keywords</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Compressed and lazy-loaded all menu images, resulting in a 20% page speed improvement</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Introduced internal links between catering, takeout, and main menu pages for improved crawl efficiency</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h2 style="margin-top: 0;">Other Changes</h2>
+        <div class="completed-section">
+          <ul class="checklist">
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Resolved duplicate content issues on two blog posts by updating canonical tags</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Fixed a broken XML sitemap link preventing some pages from being indexed</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Launched an Instagram "Healthy Eats" email capture contest, adding 76 subscribers</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Reviewed all outbound links and removed five broken links to maintain authority</label>
+            </li>
+            <li>
+              <span class="check-icon">✓</span>
+              <label>Ran a backlink outreach campaign targeting local Arizona food bloggers</label>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <h2>Other Changes</h2>
+    <div class="tables-grid">
+      <div>
+        <h2 style="margin-top: 0;">Top 10 Keyword Rankings</h2>
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>Keyword</th>
+              <th>Feb</th>
+              <th>Current</th>
+              <th>Change</th>
+              <th>Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>hummusxpress</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="change-same">0</td>
+              <td>540</td>
+            </tr>
+            <tr>
+              <td>arizona mediterranean catering</td>
+              <td>2</td>
+              <td>1</td>
+              <td class="change-up">▲ +1</td>
+              <td>430</td>
+            </tr>
+            <tr>
+              <td>healthy mediterranean takeout az</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="change-same">0</td>
+              <td>400</td>
+            </tr>
+            <tr>
+              <td>falafel restaurant tempe</td>
+              <td>4</td>
+              <td>2</td>
+              <td class="change-up">▲ +2</td>
+              <td>260</td>
+            </tr>
+            <tr>
+              <td>vegan shawarma scottsdale</td>
+              <td>4</td>
+              <td>3</td>
+              <td class="change-up">▲ +1</td>
+              <td>225</td>
+            </tr>
+            <tr>
+              <td>arizona mezze platter</td>
+              <td>6</td>
+              <td>5</td>
+              <td class="change-up">▲ +1</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>mediterranean catering mesa</td>
+              <td>8</td>
+              <td>7</td>
+              <td class="change-up">▲ +1</td>
+              <td>175</td>
+            </tr>
+            <tr>
+              <td>gluten free tabbouleh phoenix</td>
+              <td>9</td>
+              <td>8</td>
+              <td class="change-up">▲ +1</td>
+              <td>110</td>
+            </tr>
+            <tr>
+              <td>vegetarian pita gilbert</td>
+              <td>10</td>
+              <td>10</td>
+              <td class="change-same">0</td>
+              <td>90</td>
+            </tr>
+            <tr>
+              <td>local greek salad delivery</td>
+              <td>12</td>
+              <td>13</td>
+              <td class="change-down">▼ -1</td>
+              <td>82</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="completed-section">
-      <ul class="checklist">
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Resolved duplicate content issues on two blog posts by updating canonical tags</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Fixed a broken XML sitemap link preventing some pages from being indexed</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Launched an Instagram "Healthy Eats" email capture contest, adding 76 subscribers</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Reviewed all outbound links and removed five broken links to maintain authority</label>
-        </li>
-        <li>
-          <span class="check-icon">✓</span>
-          <label>Ran a backlink outreach campaign targeting local Arizona food bloggers</label>
-        </li>
-      </ul>
-    </div>
-
-    <h2>Top 10 Keyword Rankings</h2>
-
-    <table class="ranking-table">
-      <thead>
-        <tr>
-          <th>Keyword</th>
-          <th>Feb</th>
-          <th>Current</th>
-          <th>Change</th>
-          <th>Clicks</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>hummusxpress</td>
-          <td>1</td>
-          <td>1</td>
-          <td class="change-same">0</td>
-          <td>540</td>
-        </tr>
-        <tr>
-          <td>arizona mediterranean catering</td>
-          <td>2</td>
-          <td>1</td>
-          <td class="change-up">▲ +1</td>
-          <td>430</td>
-        </tr>
-        <tr>
-          <td>healthy mediterranean takeout az</td>
-          <td>1</td>
-          <td>1</td>
-          <td class="change-same">0</td>
-          <td>400</td>
-        </tr>
-        <tr>
-          <td>falafel restaurant tempe</td>
-          <td>4</td>
-          <td>2</td>
-          <td class="change-up">▲ +2</td>
-          <td>260</td>
-        </tr>
-        <tr>
-          <td>vegan shawarma scottsdale</td>
-          <td>4</td>
-          <td>3</td>
-          <td class="change-up">▲ +1</td>
-          <td>225</td>
-        </tr>
-        <tr>
-          <td>arizona mezze platter</td>
-          <td>6</td>
-          <td>5</td>
-          <td class="change-up">▲ +1</td>
-          <td>200</td>
-        </tr>
-        <tr>
-          <td>mediterranean catering mesa</td>
-          <td>8</td>
-          <td>7</td>
-          <td class="change-up">▲ +1</td>
-          <td>175</td>
-        </tr>
-        <tr>
-          <td>gluten free tabbouleh phoenix</td>
-          <td>9</td>
-          <td>8</td>
-          <td class="change-up">▲ +1</td>
-          <td>110</td>
-        </tr>
-        <tr>
-          <td>vegetarian pita gilbert</td>
-          <td>10</td>
-          <td>10</td>
-          <td class="change-same">0</td>
-          <td>90</td>
-        </tr>
-        <tr>
-          <td>local greek salad delivery</td>
-          <td>12</td>
-          <td>13</td>
-          <td class="change-down">▼ -1</td>
-          <td>82</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Top 10 Ranking Gainers</h2>
-
-    <table class="ranking-table">
+      <div>
+        <h2 style="margin-top: 0;">Top 10 Ranking Gainers</h2>
+        <table class="ranking-table">
       <thead>
         <tr>
           <th>Keyword</th>
@@ -540,8 +566,10 @@
           <td class="change-up">▲ +21</td>
           <td>10</td>
         </tr>
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
     <h2>Next Month</h2>
 
